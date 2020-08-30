@@ -1,0 +1,5 @@
+<h1>PROJECT 2</h1>
+<% if current_user %>
+  <%= link_to "log out", destroy_user_session_path, method: :delete %>
+  <%= link_to "Setting Profile", edit_user_registration_path %>
+<% end %>

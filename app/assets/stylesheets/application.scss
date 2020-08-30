@@ -13,3 +13,38 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+
+
+ /* special tags */
+ h1,h2,h3 {
+  text-align: center;
+ }
+
+
+/* registrations */
+.registrations_form {
+  input {
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+}
+#facebook {
+  background-color: #3b5998;
+}
+#google {
+  background-color: red;
+}
+
+#facebook, #google {
+  border-radius: 20px;
+  margin-bottom: 10px;
+  a {
+    display: block;
+    color: white;
+    padding-top: 6px;
+    &:hover { color: black;}
+  };
+  height: 38px;
+  text-align: center;
+}
