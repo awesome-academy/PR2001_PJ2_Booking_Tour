@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-3" style="margin: auto;">
+      <div class="registrations_form">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <%= f.text_field :name, class: 'form-control',placeholder: "Username" %>
+
+          <%= f.email_field :email, class: 'form-control', placeholder: "Email" %>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <%= f.password_field :password, class: 'form-control', placeholder: "New password" %>
+
+          <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Confirm password" %>
+
+          <%= f.password_field :current_password, class: 'form-control', placeholder: "Current-password" %>
+
+          <%= f.submit "Update", class: "btn btn-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
