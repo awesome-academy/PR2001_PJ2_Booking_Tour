@@ -1,5 +1,4 @@
 class Category < ApplicationRecord
+  validates :name, presence: true, length: { maximum: 100 }
   has_many :tours
-  validates :category_name, presence: true, length: {maximum: 100}
 end
-

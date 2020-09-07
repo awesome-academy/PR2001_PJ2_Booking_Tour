@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   root 'static_pages#home'
   devise_for :users,
              path: '',
@@ -7,11 +8,10 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'sign_in', to: 'devise/sessions#new'
   end
-  
+
   namespace :admin do
-    resources :categories, except: :show do 
-      resources :tours
-    end
+    resources :categories, only: [:index, :show, :create, :update]
+    resources :tours
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
