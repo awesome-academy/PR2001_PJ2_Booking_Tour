@@ -1,0 +1,14 @@
+<tr id="category_<%= category.id %>">
+  <td><%= category.id %></td>
+  <td><%= link_to category.category_name, new_admin_category_tour_url(category) %></td>
+  <td id="button-edit"><%= link_to "Edit", edit_admin_category_path(category) %></td>
+  <td><%= link_to "Delete", admin_category_path(category), method: :delete, data: {confirm: "Are you sure?"} %></td>
+</tr>
+
+<script>
+$(document).ready(function(){
+  $("#button-edit").click(function(){
+    $("#form-button-edit").toggle();
+  });
+});
+</script>

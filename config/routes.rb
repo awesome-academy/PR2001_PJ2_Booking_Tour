@@ -7,5 +7,11 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'sign_in', to: 'devise/sessions#new'
   end
+  
+  namespace :admin do
+    resources :categories, except: :show do 
+      resources :tours
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
