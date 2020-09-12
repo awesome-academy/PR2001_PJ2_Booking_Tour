@@ -1,0 +1,13 @@
+<tr id="tour_detail_<%= tour_detail.id %>">
+  <td><%= tour_detail.id %></td>
+  <td><%= tour_detail.departure_time %></td>
+  <td><%= tour_detail.return_time %></td>
+  <td>
+      <%= link_to "/admin/tours/#{tour.id}/tour_details/#{tour_detail.id}/edit" do %>
+        <i class="fas fa-edit" style="color:green"></i>
+      <% end %>
+      <%= link_to "/admin/tours/#{tour.id}/tour_details/#{tour_detail.id}", method: :delete, data: { confirm: "You sure?" } do %>
+        <i class="fa fa-trash" style="color:red"></i>
+      <% end %>
+  </td>
+</tr>

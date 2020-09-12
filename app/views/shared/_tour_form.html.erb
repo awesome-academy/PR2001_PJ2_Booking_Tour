@@ -8,7 +8,7 @@
   <%= f.select(:category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, :prompt => 'Choose a category') %></br>
 
   <%= f.label :description, class: "font-weight-bolder" %>
-  <%= f.cktext_area :description, value: 'Default value', id: 'sometext' %>
+  <%= f.cktext_area :description, id: 'sometext' %>
 
   <%= f.label :price, class: "font-weight-bolder" %>
   <%= f.text_field :price, class: 'form-control' %>
@@ -19,9 +19,42 @@
   <%= f.label :seats, class: "font-weight-bolder" %>
   <%= f.text_field :seats, class: 'form-control' %>
 
-  <%= f.fields_for :images, @tour.images.new do |ff| %>
-    <%= ff.file_field :link, multiple: true, name: "images[link][]" %>
-  <% end %>
+  <button type="button" class="btn btn-secondary" id="attach_image">Add Images</button>  
+  <div class="files_group">  
+    <%= f.fields_for :images, @tour.images.new do |ff| %>
+      <div>
+        <%= ff.file_field :link, class: "link_field" %>
+        <i class='fas fa-minus-circle' id="minus_0_image"></i>
+      </div>
+    <% end %>
+  </div>
 
   <%= f.submit "Confirm", class: "btn btn-primary" %>
 <% end %>
+
+<script type="text/javascript">
+  $("#attach_image").click(function(){
+    attachImagefield();
+  })
+  function attachImagefield(){
+    var div = document.createElement("div");
+    var input = document.createElement("input");
+    var i_tag = document.createElement("i")
+    var i = $(".link_field").length;
+    input.type = "file";
+    input.id = "tour_images_attributes_" + i + "_link";
+    input.name = "tour[images_attributes][" + i + "][link]";
+    input.className = "link_field";
+    div.append(input);
+    $(".files_group").append(div);
+    i_tag.className = "fas fa-minus-circle";
+    i_tag.id = "minus_" + i + "_image"
+    div.append(i_tag);
+    $("input~i").click(function(){
+      $(this).parent().remove();
+    })
+  }
+  $("input~i").click(function(){
+    $(this).parent().remove();
+  })
+</script>
