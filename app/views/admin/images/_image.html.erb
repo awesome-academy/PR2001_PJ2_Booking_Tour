@@ -1,0 +1,8 @@
+<div class="col-sm-4", id="image_<%= image.id%>">
+  <div class="card">
+    <%= link_to "/admin/tours/#{tour.id}/images/#{image.id}" , method: :delete, data: { confirm: "You sure?" } do %>
+      <i class='fas fa-times-circle'></i>
+    <% end %>
+    <%= image_tag(image.link_url.to_s, class: "card-img-top") %>
+  </div>
+</div>
