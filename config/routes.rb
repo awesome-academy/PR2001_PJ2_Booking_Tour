@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount Ckeditor::Engine => '/ckeditor'
   root 'static_pages#home'
   devise_for :users,
              path: '',
@@ -16,6 +15,11 @@ Rails.application.routes.draw do
       resources :images, only: [:create, :destroy]
     end
   end
+
+  resources :categories do
+    resources :tours
+  end
+
   get "/admin", to: "admin/dash_board#home"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

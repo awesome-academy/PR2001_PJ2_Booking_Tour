@@ -1,0 +1,67 @@
+<div id="demo" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <% @images.count.times do |n| %>
+    <li data-target="#demo" data-slide-to="<%=n+1%>" class="<%= n == 0 ? 'active' : '' %>"></li>
+    <%end%>
+  </ul>
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <%= render @images, tour: @tour %>
+  </div>
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+<div class="container">
+  <ul class="breadcrumb" style="background-color: white">
+    <li class="breadcrumb-item">
+      <%= link_to "/" do %>
+        <i class="fa fa-home"></i> Home
+      <% end %>
+    </li>
+    <li class="breadcrumb-item">
+      <%= link_to @tour.category.name, category_path(@tour.category) %>
+    </li>
+    <li class="breadcrumb-item">
+      <%= link_to @tour.name, category_tour_path(@tour.category, @tour) %>
+    </li>
+  </ul>
+
+  <h3><%= @tour.name %></h3>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div style="background-color: #e9ecef;">
+        <%= sanitize @tour.description %>
+      </div>
+      <table class="table table-hover" id="tours">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Departure</th>
+            <th>Return</th>
+            <th>Seat(s) Available</th>
+            <th>Your Choice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @tour_details %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      <div>
+        <h5><strong>Price: <%= @tour.price %></strong></h5>
+        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;"><strong>Coupon: <%= @tour.coupon %></strong></p>
+        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;"><strong>Rate</strong></p>
+        <button type="button" class="btn" style="background-color: orange">Book Now</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -49,13 +49,12 @@
       <div class="col">
         <h3 id="images_title"><i class='far fa-images'></i> Images</h3>
         <div class="row"><%= render @images, tour: @tour %></div>
-        <button type="button" class="btn btn-secondary" id="add_image">Add Images</button>
+        <button type="button" class="btn btn-secondary" id="add_image"><i class='fas fa-plus-circle'></i> Add Images</button>
         <%= form_for [:admin, @tour, @image] do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
           <div class="field_form">
             <div>
-              <%= f.file_field :link, class: "count_link", id: "images_0_link" , name: "images[link][]" %>
-              <i class='fas fa-minus-circle' id="minus_0_circle"></i>
+              <%= f.file_field :link, class: "count_link", id: "images_0_link" , name: "images[link][]" %><i class='fas fa-minus-circle' id="minus_0_circle"></i>
             </div>
           </div>
           <%= f.submit "Upload", class: "btn btn-warning" %>
