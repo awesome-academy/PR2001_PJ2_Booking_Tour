@@ -19,11 +19,13 @@ class User < ApplicationRecord
   end
 
   before_save :downcase_email
+
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: { case_sensitive: false }
 
-  private
+  has_many :booking_tours, dependent: :destroy
 
+  private
   # Converts email to all lower-case.
   def downcase_email
     self.email = email.downcase

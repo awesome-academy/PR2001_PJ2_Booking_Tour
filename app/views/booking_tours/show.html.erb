@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="col-md-4 col-lg-6" style="margin: auto;">
+    <h3><%= current_user.name %> Please continue complete the form below </h3>
+    <table class="table table-striped">
+      <tr>
+        <th>Customer Name</th>
+        <td><%= current_user.name %></td>  
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= current_user.email %></td> 
+      </tr>
+      <tr>
+        <th>Tour</th>
+        <td><%= @tour.name %></td>  
+      </tr>
+      <tr>
+        <th>Departure Time</th>
+        <td><%= @tour_detail.departure_time %></td> 
+      </tr>
+      <tr>
+        <th>Return Time</th>
+        <td><%= @tour_detail.return_time %></td> 
+      </tr>
+      <tr>
+        <th>Price($)</th>
+        <td id="get-price"><%= @tour.price %></td> 
+      </tr>
+      <tr>
+        <th>Coupon(%)</th>
+        <td><%= @tour.coupon %></td>  
+      </tr>
+      <tr>
+        <th>Available Seat(s)</th>
+        <td><%= @tour.coupon %></td>  
+      </tr>
+      <tr>
+        <th>Quantity</th>
+        <td><%= @booking_tour.quantity %></td>  
+      </tr>
+      <tr>
+        <th>Tatal($)(da tru coupon)</th>
+        <td><%= @booking_tour.price_total %></td> 
+      </tr>
+    </table>
+  </div>
+</div>

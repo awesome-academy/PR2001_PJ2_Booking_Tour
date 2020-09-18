@@ -1,90 +1,926 @@
+    <!-- main-menu Start -->
+    <header class="top-area">
+      <div class="header-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-2">
+              <div class="logo">
+                <a href="index.html">
+                  tour<span>Nest</span>
+                </a>
+              </div><!-- /.logo-->
+            </div><!-- /.col-->
+            <div class="col-sm-10">
+              <div class="main-menu">
+              
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                  </button><!-- / button-->
+                </div><!-- /.navbar-header-->
+                <div class="collapse navbar-collapse">      
+                  <ul class="nav navbar-nav navbar-right">
+                    <li class="smooth-menu"><a href="#home">home</a></li>
+                    <li class="smooth-menu"><a href="#gallery">Destination</a></li>
+                    <li class="smooth-menu"><a href="#pack">Packages </a></li>
+                    <li class="smooth-menu"><a href="#spo">Special Offers</a></li>
+                    <li class="smooth-menu"><a href="#blog">blog</a></li>
+                    <li class="smooth-menu"><a href="#subs">subscription</a></li>
+                    <li>
+                      <button class="book-btn">book now
+                      </button>
+                    </li><!--/.project-btn--> 
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.main-menu-->
+            </div><!-- /.col-->
+          </div><!-- /.row -->
+          <div class="home-border"></div><!-- /.home-border-->
+        </div><!-- /.container-->
+      </div><!-- /.header-area -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    </header><!-- /.top-area-->
+    <!-- main-menu End -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
+    
+    <!--about-us start -->
+    <section id="home" class="about-us">
+      <div class="container">
+        <div class="about-us-content">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="single-about-us">
+                <div class="about-us-txt">
+                  <h4>
+                    Explore the Beauty of the Beautiful World 
+                  </h4>
+                  <div class="form-search">
+                    <%= search_form_for @q, url: "/search/tours", class: "form-inline" do |f| %>
+                      <div class="form-group">
+                          <%= f.text_field :name_cont, class: "form-control", placeholder: "Name of Tour" %>
+                      </div> <!-- Tìm kiếm theo name có chứa ... -->
+                      <div class="form-group">
+                        <%= f.label :price_in, "Price: " %>
+                          <%= f.select :price_gteq, options_for_select([["$0", 0], ["$300", 300], ["$500", 500]]), {prompt: "From"}, {class: "custom-select"} %>
+                          <%= f.select :price_lteq, options_for_select([["$0", 0], ["$300", 300], ["$500", 500]]), {prompt: "To"}, {class: "custom-select"} %>
+                      </div> <!-- Tìm kiếm theo age lớn hơn bằng ...  -->
+                      <div class="form-group">
+                          <%= f.label :tour_details_gteq, 'From or After: ' %>
+                          <%= f.date_field :tour_details_gteq, class: "form-control", id: "date" %>
+                      </div>
+                      <div class="form-group">
+                          <%= f.select :category_id_eq, options_for_select(@categories.map{|category| ["#{category.name}","#{category.id}"]}), {prompt: "Choose Category"}, {class: "custom-select"} %>
+                      </div> <!-- Tìm kiếm theo gender -->
+                      <%= button_tag(type: "submit", class: "btn btn-light", id: "search") do %>
+                        <i class="fa fa-search"> Search </i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div><!--/.about-us-txt-->
+              </div><!--/.single-about-us-->
+            </div><!--/.col-->
+            <div class="col-sm-0">
+              <div class="single-about-us">
+                
+              </div><!--/.single-about-us-->
+            </div><!--/.col-->
+          </div><!--/.row-->
+        </div><!--/.about-us-content-->
+      </div><!--/.container-->
 
-                <p>New Orders</p>
+    </section><!--/.about-us-->
+    <!--about-us end -->
+
+    <section class="ftco-section services-section bg-light" style="height: 400px; margin-top: -40px">
+      <div class="container">
+        <div class="row d-flex">
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+            <div class="media block-6 services d-block text-center" id="bl1">
+              <div class="d-flex justify-content-center">
+                <div class="icon" style="margin-top: 25px">
+                  <%= image_tag("flaticon-guarantee.png", alt: "Rails logo", id: "guarantee-logo") %>
+                </div>
               </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
+              <div class="media-body p-2 mt-2">
+                <h3 class="heading mb-3">Best Price Guarantee</h3>
+                <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Bounce Rate</p>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+            <div class="media block-6 services d-block text-center" id="bl2">
+              <div class="d-flex justify-content-center">
+                <div class="icon">
+                  <%= image_tag("heart.png", alt: "Rails logo", id: "heart-logo") %>
+                </div>
               </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+              <div class="media-body p-2 mt-2">
+                <h3 class="heading mb-3">Travellers Love Us</h3>
+                <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>User Registrations</p>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+            <div class="media block-6 services d-block text-center" id="bl3">
+              <div class="d-flex justify-content-center">
+                <div class="icon">
+                  <%= image_tag("spy-1.png", alt: "Rails logo", id: "spy-logo") %>
+                </div>
               </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
+              <div class="media-body p-2 mt-2">
+                <h3 class="heading mb-3">Best Travel Agent</h3>
+                <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
+          <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+            <div class="media block-6 services d-block text-center" id="bl4">
+              <div class="d-flex justify-content-center">
+                <div class="icon">
+                  <%= image_tag("support.png", alt: "Rails logo", id: "support-logo") %>
+                </div>
               </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+              <div class="media-body p-2 mt-2">
+                <h3 class="heading mb-3">Our Dedicated Support</h3>
+                <p>A small river named Duden flows by their place and supplies.</p>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
         </div>
-        <!-- /.row -->
       </div>
     </section>
+
+    
+
+        <!--service start-->
+    <section id="service" class="service">
+      <div class="container">
+
+        <div class="service-counter text-center">
+          <div class="row">
+          <div class="col-md-4 col-sm-4">
+            <div class="single-service-box">
+              <div class="service-img">
+                <img src="assets/images/service/s1.png" alt="service-icon" />
+              </div><!--/.service-img-->
+              <div class="service-content">
+                <h2>
+                  <a href="#">
+                  amazing tour packages
+                  </a>
+                </h2>
+                <p>Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.</p>
+              </div><!--/.service-content-->
+            </div><!--/.single-service-box-->
+          </div><!--/.col-->
+
+          <div class="col-md-4 col-sm-4">
+            <div class="single-service-box">
+              <div class="service-img">
+                <img src="assets/images/service/s2.png" alt="service-icon" />
+              </div><!--/.service-img-->
+              <div class="service-content">
+                <h2>
+                  <a href="#">
+                    book top class hotel
+                  </a>
+                </h2>
+                <p>Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.</p>
+              </div><!--/.service-content-->
+            </div><!--/.single-service-box-->
+          </div><!--/.col-->
+
+          <div class="col-md-4 col-sm-4">
+            <div class="single-service-box">
+              <div class="statistics-img">
+                <img src="assets/images/service/s3.png" alt="service-icon" />
+              </div><!--/.service-img-->
+              <div class="service-content">
+
+                <h2>
+                  <a href="#">
+                    online flight booking
+                  </a>
+                </h2>
+                <p>Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.</p>
+              </div><!--/.service-content-->
+            </div><!--/.single-service-box-->
+          </div>
+          </div><!--/.col-->
+
+        </div><!--/.statistics-counter--> 
+      </div><!--/.container-->
+
+    </section><!--/.service-->
+    <!--service end-->
+
+    <!--galley start-->
+    <section id="gallery" class="gallery">
+      <div class="container">
+        <div class="gallery-details">
+          <div class="gallary-header text-center">
+            <h2>
+              top destination
+            </h2>
+            <p>
+              Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.  
+            </p>
+          </div><!--/.gallery-header-->
+          <div class="gallery-box">
+            <div class="gallery-content">
+                <div class="filtr-container">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="filtr-item" style="height: 300px;">
+                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
+"https://rubyonrails.org/" %>
+                        <div class="item-title">
+                          <a href="#">
+                            china
+                          </a>
+                          <p><span>20 tours</span><span>15 places</span></p>
+                        </div><!-- /.item-title -->
+                      </div><!-- /.filtr-item -->
+                    </div><!-- /.col -->
+
+                    <div class="col-md-6">
+                      <div class="filtr-item" style="height: 300px">
+                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
+"https://rubyonrails.org/" %>
+                        <div class="item-title">
+                          <a href="#">
+                            venuzuala
+                          </a>
+                          <p><span>12 tours</span><span>9 places</span></p>
+                        </div> <!-- /.item-title-->
+                      </div><!-- /.filtr-item -->
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="filtr-item" style="height: 630px">
+                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
+"https://rubyonrails.org/", id: "size630" %>
+                        <div class="item-title">
+                          <a href="#">
+                            venuzuala
+                          </a>
+                          <p><span>12 tours</span><span>9 places</span></p>
+                        </div> <!-- /.item-title-->
+                      </div>
+                    </div><!-- /.col -->
+
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="filtr-item" style="height: 300px;">
+                            <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
+    "https://rubyonrails.org/", class: "size300" %>
+                            <div class="item-title">
+                              <a href="#">
+                                venuzuala
+                              </a>
+                              <p><span>12 tours</span><span>9 places</span></p>
+                            </div> <!-- /.item-title-->
+                          </div>
+                        </div><!-- /.col -->
+
+                        <div class="col-md-6">
+                          <div class="filtr-item" style="height: 300px">
+                            <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
+    "https://rubyonrails.org/", class: "size300" %>
+                            <div class="item-title">
+                              <a href="#">
+                                venuzuala
+                              </a>
+                              <p><span>12 tours</span><span>9 places</span></p>
+                            </div> <!-- /.item-title-->
+                          </div>
+                        </div><!-- /.col -->
+                      </div>
+                      <div class="filtr-item" style="height: 300px">
+                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
+"https://rubyonrails.org/" %>
+                        <div class="item-title">
+                          <a href="#">
+                            venuzuala
+                          </a>
+                          <p><span>12 tours</span><span>9 places</span></p>
+                        </div> <!-- /.item-title-->
+                      </div>
+                    </div>
+
+ 
+                    </div>
+                  
+                 
+
+                </div><!-- /.filtr-container-->
+            </div><!-- /.gallery-content -->
+          </div><!--/.galley-box-->
+        </div><!--/.gallery-details-->
+      </div><!--/.container-->
+
+    </section><!--/.gallery-->
+    <!--gallery end-->
+
+
+    
+
+    <!--packages start-->
+    <section id="pack" class="packages">
+      <div class="container">
+        <div class="gallary-header text-center">
+          <h2>
+            special packages
+          </h2>
+          <p>
+            Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.  
+          </p>
+        </div><!--/.gallery-header-->
+        <div class="packages-content">
+          <div class="row">
+
+            <div class="col-md-4 col-sm-6">
+              <div class="single-package-item">
+                <%= image_tag("bg_1.png", alt: "Rails logo") %>
+                <div class="single-package-item-txt">
+                  <h3>italy <span class="pull-right">$499</span></h3>
+                  <div class="packages-para">
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 5 daays 6 nights
+                      </span>
+                      <i class="fa fa-angle-right"></i>  5 star accomodation
+                    </p>
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  transportation
+                      </span>
+                      <i class="fa fa-angle-right"></i>  food facilities
+                     </p>
+                  </div><!--/.packages-para-->
+                  <div class="packages-review">
+                    <p>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <span>2544 review</span>
+                    </p>
+                  </div><!--/.packages-review-->
+                  <div class="about-btn">
+                    <button  class="about-view packages-btn">
+                      book now
+                    </button>
+                  </div><!--/.about-btn-->
+                </div><!--/.single-package-item-txt-->
+              </div><!--/.single-package-item-->
+
+            </div><!--/.col-->
+
+            <div class="col-md-4 col-sm-6">
+              <div class="single-package-item">
+                <%= image_tag("bg_1.png", alt: "Rails logo") %>
+                <div class="single-package-item-txt">
+                  <h3>england <span class="pull-right">$1499</span></h3>
+                  <div class="packages-para">
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 5 daays 6 nights
+                      </span>
+                      <i class="fa fa-angle-right"></i>  5 star accomodation
+                    </p>
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  transportation
+                      </span>
+                      <i class="fa fa-angle-right"></i>  food facilities
+                     </p>
+                  </div><!--/.packages-para-->
+                  <div class="packages-review">
+                    <p>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <span>2544 review</span>
+                    </p>
+                  </div><!--/.packages-review-->
+                  <div class="about-btn">
+                    <button  class="about-view packages-btn">
+                      book now
+                    </button>
+                  </div><!--/.about-btn-->
+                </div><!--/.single-package-item-txt-->
+              </div><!--/.single-package-item-->
+
+            </div><!--/.col-->
+            
+            <div class="col-md-4 col-sm-6">
+              <div class="single-package-item">
+                <%= image_tag("bg_1.png", alt: "Rails logo") %>
+                <div class="single-package-item-txt">
+                  <h3>france <span class="pull-right">$1199</span></h3>
+                  <div class="packages-para">
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 5 daays 6 nights
+                      </span>
+                      <i class="fa fa-angle-right"></i>  5 star accomodation
+                    </p>
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  transportation
+                      </span>
+                      <i class="fa fa-angle-right"></i>  food facilities
+                     </p>
+                  </div><!--/.packages-para-->
+                  <div class="packages-review">
+                    <p>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <span>2544 review</span>
+                    </p>
+                  </div><!--/.packages-review-->
+                  <div class="about-btn">
+                    <button  class="about-view packages-btn">
+                      book now
+                    </button>
+                  </div><!--/.about-btn-->
+                </div><!--/.single-package-item-txt-->
+              </div><!--/.single-package-item-->
+
+            </div><!--/.col-->
+            
+            <div class="col-md-4 col-sm-6">
+              <div class="single-package-item">
+                <%= image_tag("bg_1.png", alt: "Rails logo") %>
+                <div class="single-package-item-txt">
+                  <h3>india <span class="pull-right">$799</span></h3>
+                  <div class="packages-para">
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 5 daays 6 nights
+                      </span>
+                      <i class="fa fa-angle-right"></i>  5 star accomodation
+                    </p>
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  transportation
+                      </span>
+                      <i class="fa fa-angle-right"></i>  food facilities
+                     </p>
+                  </div><!--/.packages-para-->
+                  <div class="packages-review">
+                    <p>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <span>2544 review</span>
+                    </p>
+                  </div><!--/.packages-review-->
+                  <div class="about-btn">
+                    <button  class="about-view packages-btn">
+                      book now
+                    </button>
+                  </div><!--/.about-btn-->
+                </div><!--/.single-package-item-txt-->
+              </div><!--/.single-package-item-->
+
+            </div><!--/.col-->
+            
+            <div class="col-md-4 col-sm-6">
+              <div class="single-package-item">
+                <%= image_tag("bg_1.png", alt: "Rails logo") %>
+                <div class="single-package-item-txt">
+                  <h3>spain <span class="pull-right">$999</span></h3>
+                  <div class="packages-para">
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 5 daays 6 nights
+                      </span>
+                      <i class="fa fa-angle-right"></i>  5 star accomodation
+                    </p>
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  transportation
+                      </span>
+                      <i class="fa fa-angle-right"></i>  food facilities
+                     </p>
+                  </div><!--/.packages-para-->
+                  <div class="packages-review">
+                    <p>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <span>2544 review</span>
+                    </p>
+                  </div><!--/.packages-review-->
+                  <div class="about-btn">
+                    <button  class="about-view packages-btn">
+                      book now
+                    </button>
+                  </div><!--/.about-btn-->
+                </div><!--/.single-package-item-txt-->
+              </div><!--/.single-package-item-->
+
+            </div><!--/.col-->
+            
+            <div class="col-md-4 col-sm-6">
+              <div class="single-package-item">
+                <%= image_tag("bg_1.png", alt: "Rails logo") %>
+                <div class="single-package-item-txt">
+                  <h3>thailand <span class="pull-right">$799</span></h3>
+                  <div class="packages-para">
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 5 daays 6 nights
+                      </span>
+                      <i class="fa fa-angle-right"></i>  5 star accomodation
+                    </p>
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  transportation
+                      </span>
+                      <i class="fa fa-angle-right"></i>  food facilities
+                     </p>
+                  </div><!--/.packages-para-->
+                  <div class="packages-review">
+                    <p>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <span>2544 review</span>
+                    </p>
+                  </div><!--/.packages-review-->
+                  <div class="about-btn">
+                    <button  class="about-view packages-btn">
+                      book now
+                    </button>
+                  </div><!--/.about-btn-->
+                </div><!--/.single-package-item-txt-->
+              </div><!--/.single-package-item-->
+
+            </div><!--/.col-->
+
+          </div><!--/.row-->
+        </div><!--/.packages-content-->
+      </div><!--/.container-->
+
+    </section><!--/.packages-->
+    <!--packages end-->
+
+    <!-- testemonial Start -->
+    
+
+    <!--special-offer start-->
+    <section id="spo" class="special-offer">
+      <div class="container">
+        <div class="special-offer-content">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="single-special-offer">
+                <div class="single-special-offer-txt">
+                  <h2>thiland</h2>
+                  <div class="packages-review special-offer-review">
+                    <p>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <span>2544 review</span>
+                    </p>
+                  </div><!--/.packages-review-->
+                  <div class="packages-para special-offer-para">
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 5 daays 6 nights
+                      </span>
+                      <span>
+                        <i class="fa fa-angle-right"></i> 2 person
+                      </span>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  5 star accomodation
+                      </span>
+                    </p>
+                    <p>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  transportation
+                      </span>
+                      <span>
+                        <i class="fa fa-angle-right"></i>  food facilities
+                      </span>  
+                    </p>
+                    <p class="offer-para">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tem ut labore et dolore magna  aliqua. Ut enim ad minim veniam, quis nostrud exercitation una <br> ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    </p>
+                  </div><!--/.packages-para-->
+                  <div class="offer-btn-group">
+                    <div class="about-btn">
+                      <button  class="about-view packages-btn offfer-btn">
+                        make tour
+                      </button>
+                    </div><!--/.about-btn-->
+                    <div class="about-btn">
+                      <button  class="about-view packages-btn">
+                        book now
+                      </button>
+                    </div><!--/.about-btn-->
+                  </div><!--/.offer-btn-group-->
+                </div><!--/.single-special-offer-txt-->
+              </div><!--/.single-special-offer-->
+            </div><!--/.col-->
+            <div class="col-sm-4">
+              <div class="single-special-offer">
+                <div class="single-special-offer-bg">
+                  <img src="assets/images/offer/offer-shape.png" alt="offer-shape">
+                </div><!--/.single-special-offer-bg-->
+                <div class="single-special-shape-txt">
+                  <h3>special offer</h3>
+                  <h4><span>40%</span><br>off</h4>
+                  <p><span>$999</span><br>reguler $ 1450</p>
+                </div><!--/.single-special-shape-txt-->
+              </div><!--/.single-special-offer-->
+            </div><!--/.col-->
+          </div><!--/.row-->
+        </div><!--/.special-offer-content-->
+      </div><!--/.container-->
+
+    </section><!--/.special-offer end-->
+    <!--special-offer end-->
+
+    <!--blog start-->
+    <section id="blog" class="blog">
+      <div class="container">
+        <div class="blog-details">
+            <div class="gallary-header text-center">
+              <h2>
+                New Best Reviews
+              </h2>
+              <p>
+                New Reviews From Tourists   
+              </p>
+            </div><!--/.gallery-header-->
+            <div class="blog-content">
+              <div class="row">
+
+                <div class="col-sm-4 col-md-4">
+                  <div class="thumbnail">
+                    <h2>trending news <span>15 november 2017</span></h2>
+                    <div class="thumbnail-img">
+                      <img src="assets/images/blog/b1.jpg" alt="blog-img">
+                      <div class="thumbnail-img-overlay"></div><!--/.thumbnail-img-overlay-->
+                    
+                    </div><!--/.thumbnail-img-->
+                    
+                    <div class="caption">
+                      <div class="blog-txt">
+                        <h3>
+                          <a href="#">
+                            Discover on beautiful weather, Fantastic foods and historical place in Prag
+                          </a>
+                        </h3>
+                        <p>
+                          Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam 
+                        </p>
+                        <a href="#">Read More</a>
+                      </div><!--/.blog-txt-->
+                    </div><!--/.caption-->
+                  </div><!--/.thumbnail-->
+
+                </div><!--/.col-->
+
+                <div class="col-sm-4 col-md-4">
+                  <div class="thumbnail">
+                    <h2>trending news <span>15 november 2017</span></h2>
+                    <div class="thumbnail-img">
+                      <img src="assets/images/blog/b2.jpg" alt="blog-img">
+                      <div class="thumbnail-img-overlay"></div><!--/.thumbnail-img-overlay-->
+                    
+                    </div><!--/.thumbnail-img-->
+                    <div class="caption">
+                      <div class="blog-txt">
+                        <h3>
+                          <a href="#">
+                            Discover on beautiful weather, Fantastic foods and historical place in india
+                          </a>
+                        </h3>
+                        <p>
+                          Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam 
+                        </p>
+                        <a href="#">Read More</a>
+                      </div><!--/.blog-txt-->
+                    </div><!--/.caption-->
+                  </div><!--/.thumbnail-->
+
+                </div><!--/.col-->
+
+                <div class="col-sm-4 col-md-4">
+                  <div class="thumbnail">
+                    <h2>trending news <span>15 november 2017</span></h2>
+                    <div class="thumbnail-img">
+                      <img src="assets/images/blog/b3.jpg" alt="blog-img">
+                      <div class="thumbnail-img-overlay"></div><!--/.thumbnail-img-overlay-->
+                    
+                    </div><!--/.thumbnail-img-->
+                    <div class="caption">
+                      <div class="blog-txt">
+                        <h3><a href="#">10 Most Natural place to Discover</a></h3>
+                        <p>
+                          Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam 
+                        </p>
+                        <a href="#">Read More</a>
+                      </div><!--/.blog-txt-->
+                    </div><!--/.caption-->
+                  </div><!--/.thumbnail-->
+
+                </div><!--/.col-->
+
+              </div><!--/.row-->
+            </div><!--/.blog-content-->
+          </div><!--/.blog-details-->
+        </div><!--/.container-->
+
+    </section><!--/.blog-->
+    <!--blog end-->
+
+    
+    <!--subscribe start-->
+    <section id="subs" class="subscribe">
+      <div class="container">
+        <div class="subscribe-title text-center">
+          <h2>
+            Join our Subscribers List to Get Regular Update
+          </h2>
+          <p>
+            Subscribe Now. We will send you Best offer for your Trip 
+          </p>
+        </div>
+        <form>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+              <div class="custom-input-group">
+                <input type="email" class="form-control" placeholder="Enter your Email Here">
+                <button class="appsLand-btn subscribe-btn">Subscribe</button>
+                <div class="clearfix"></div>
+                <i class="fa fa-envelope"></i>
+              </div>
+
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </section>
+    <!--subscribe end-->
+
+    <!-- footer-copyright start -->
+    <footer  class="footer-copyright">
+      <div class="container">
+        <div class="footer-content">
+          <div class="row">
+
+            <div class="col-sm-3">
+              <div class="single-footer-item">
+                <div class="footer-logo">
+                  <a href="index.html">
+                    tour<span>Nest</span>
+                  </a>
+                  <p>
+                    best travel agency
+                  </p>
+                </div>
+              </div><!--/.single-footer-item-->
+            </div><!--/.col-->
+
+            <div class="col-sm-3">
+              <div class="single-footer-item">
+                <h2>link</h2>
+                <div class="single-footer-txt">
+                  <p><a href="#">home</a></p>
+                  <p><a href="#">destination</a></p>
+                  <p><a href="#">spacial packages</a></p>
+                  <p><a href="#">special offers</a></p>
+                  <p><a href="#">blog</a></p>
+                  <p><a href="#">contacts</a></p>
+                </div><!--/.single-footer-txt-->
+              </div><!--/.single-footer-item-->
+
+            </div><!--/.col-->
+
+            <div class="col-sm-3">
+              <div class="single-footer-item">
+                <h2>popular destination</h2>
+                <div class="single-footer-txt">
+                  <p><a href="#">china</a></p>
+                  <p><a href="#">venezuela</a></p>
+                  <p><a href="#">brazil</a></p>
+                  <p><a href="#">australia</a></p>
+                  <p><a href="#">london</a></p>
+                </div><!--/.single-footer-txt-->
+              </div><!--/.single-footer-item-->
+            </div><!--/.col-->
+
+            <div class="col-sm-3">
+              <div class="single-footer-item text-center">
+                <h2 class="text-left">contacts</h2>
+                <div class="single-footer-txt text-left">
+                  <p>+1 (300) 1234 6543</p>
+                  <p class="foot-email"><a href="#">info@tnest.com</a></p>
+                  <p>North Warnner Park 336/A</p>
+                  <p>Newyork, USA</p>
+                </div><!--/.single-footer-txt-->
+              </div><!--/.single-footer-item-->
+            </div><!--/.col-->
+
+          </div><!--/.row-->
+
+        </div><!--/.footer-content-->
+        <hr>
+        <div class="foot-icons ">
+          <ul class="footer-social-links list-inline list-unstyled">
+                    <li><a href="#" target="_blank" class="foot-icon-bg-1"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" target="_blank" class="foot-icon-bg-2"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#" target="_blank" class="foot-icon-bg-3"><i class="fab fa-instagram"></i></a></li>
+              </ul>
+              <p>&copy; 2017 <a href="https://www.themesine.com">ThemeSINE</a>. All Right Reserved</p>
+
+            </div><!--/.foot-icons-->
+        <div id="scroll-Top">
+          <i class="fa fa-angle-double-up return-to-top" id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+        </div><!--/.scroll-Top-->
+      </div><!-- /.container-->
+
+    </footer><!-- /.footer-copyright-->
+    <!-- footer-copyright end -->
+
+
+<script type="text/javascript">
+  $("#bl1").mouseenter(function(){
+    changeColorbl1()
+  })
+  function changeColorbl1(){
+    document.getElementById('guarantee-logo').src="<%= asset_path('guarantee-3.png') %>"
+  }
+  $("#bl1").mouseleave(function(){
+    returnColorbl1()
+  })
+  function returnColorbl1(){
+    document.getElementById('guarantee-logo').src="<%= asset_path('flaticon-guarantee.png') %>"
+  }
+
+  $("#bl2").mouseenter(function(){
+    changeColorbl2()
+  })
+  function changeColorbl2(){
+    document.getElementById('heart-logo').src="<%= asset_path('heart-1.png') %>"
+  }
+  $("#bl2").mouseleave(function(){
+    returnColorbl2()
+  })
+  function returnColorbl2(){
+    document.getElementById('heart-logo').src="<%= asset_path('heart.png') %>"
+  }
+
+  $("#bl3").mouseenter(function(){
+    changeColorbl3()
+  })
+  function changeColorbl3(){
+    document.getElementById('spy-logo').src="<%= asset_path('spy.png') %>"
+  }
+  $("#bl3").mouseleave(function(){
+    returnColorbl3()
+  })
+  function returnColorbl3(){
+    document.getElementById('spy-logo').src="<%= asset_path('spy-1.png') %>"
+  }
+
+  $("#bl4").mouseenter(function(){
+    changeColorbl4()
+  })
+  function changeColorbl4(){
+    document.getElementById('support-logo').src="<%= asset_path('support-1.png') %>"
+  }
+  $("#bl4").mouseleave(function(){
+    returnColorbl4()
+  })
+  function returnColorbl4(){
+    document.getElementById('support-logo').src="<%= asset_path('support.png') %>"
+  }
+</script>

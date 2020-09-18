@@ -1,7 +1,12 @@
-class Admin::CategoriesController < ApplicationController
+class Admin::CategoriesController < Admin::BaseController
   def index
     @category = Category.new
     @categories = Category.all
+  end
+
+  def show
+    @category = Category.find(params[:id])
+    @tours = @category.tours
   end
 
   def new
@@ -34,13 +39,13 @@ class Admin::CategoriesController < ApplicationController
 
   def destroy
     Category.find(params[:id]).destroy
-        flash[:success] = "Category deleted!"
-        redirect_to admin_categories_url
+    flash[:success] = "Category deleted!"
+    redirect_to admin_categories_url
   end
 
   private
 
-    def category_params
-      params.require(:category).permit(:category_name)
-    end
+  def category_params
+    params.require(:category).permit(:name)
+  end
 end

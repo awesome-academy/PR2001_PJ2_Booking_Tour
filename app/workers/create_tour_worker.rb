@@ -1,7 +1,9 @@
 class CreateTourWorker
   include Sidekiq::Worker
 
-  def perform(tour_attributes)
-    Tour.create(tour_attributes)
+  def perform
+    10.times do |i|
+      Category.create name: "cate #{i + 1}"
+    end
   end
 end

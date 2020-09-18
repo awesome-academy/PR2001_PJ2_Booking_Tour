@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_030731) do
+ActiveRecord::Schema.define(version: 2020_09_18_025301) do
+
+  create_table "booking_tours", force: :cascade do |t|
+    t.integer "tour_detail_id", null: false
+    t.integer "user_id", null: false
+    t.integer "price"
+    t.integer "coupon"
+    t.integer "quantity"
+    t.float "price_total"
+    t.integer "booking_status", default: 1, null: false
+    t.integer "payment_status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tour_detail_id"], name: "index_booking_tours_on_tour_detail_id"
+    t.index ["user_id"], name: "index_booking_tours_on_user_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -92,6 +107,8 @@ ActiveRecord::Schema.define(version: 2020_09_02_030731) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "booking_tours", "tour_details"
+  add_foreign_key "booking_tours", "users"
   add_foreign_key "images", "tours"
   add_foreign_key "reviews", "tours"
   add_foreign_key "reviews", "users"

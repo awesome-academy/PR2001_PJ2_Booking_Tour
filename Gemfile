@@ -27,6 +27,8 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'sidekiq'
+gem 'whenever', require: false
+gem 'ransack'
 #gem 'ckeditor'
 gem 'carrierwave'
 # Use Active Storage variant

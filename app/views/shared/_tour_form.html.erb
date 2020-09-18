@@ -4,7 +4,7 @@
   <%= f.label :name, class: "font-weight-bolder" %>
   <%= f.text_field :name, class: 'form-control' %>
 
-  <%= f.select(:category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, :prompt => 'Choose a category') %></br>
+  <%= f.select :category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, {prompt: 'Choose a category'}, {class: "custom-select"} %></br>
 
   <%= f.label :description, class: "font-weight-bolder" %>
   <%= f.text_area :description, id: 'editor1' %>
