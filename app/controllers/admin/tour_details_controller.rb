@@ -7,6 +7,7 @@ class Admin::TourDetailsController < Admin::BaseController
       redirect_to admin_tour_url(@tour)
     else
       @tour_details = @tour.tour_details.reject{ |a| a.id == nil }
+      @image = Image.new
       @images = @tour.images
       flash.now[:danger] = 'Setting fail!'
       render "admin/tours/show"
@@ -17,6 +18,7 @@ class Admin::TourDetailsController < Admin::BaseController
     @tour_detail = TourDetail.find(params[:id])
     @tour = @tour_detail.tour
     @tour_details = @tour.tour_details
+    @image = Image.new
     @images = @tour.images
     render "admin/tours/show"
   end
@@ -29,6 +31,7 @@ class Admin::TourDetailsController < Admin::BaseController
       redirect_to admin_tour_url(@tour)
     else
       @tour_details = @tour.tour_details
+      @image = Image.new
       @images = @tour.images
       flash.now[:danger] = 'Update fail!'
       render "admin/tours/show"

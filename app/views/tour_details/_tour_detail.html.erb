@@ -1,0 +1,9 @@
+<tr>
+  <td><%= tour_detail.id %></td>
+  <td><%= tour_detail.departure_time %></td>
+  <td><%= tour_detail.return_time %></td>
+  <td><%= tour_detail.tour.seats - tour_detail.booking_tours&.select{|booking_tour| booking_tour if booking_tour.book?}.sum{|booking_tour| booking_tour.quantity} %></td>
+  <td>
+    <%= link_to "Booking", new_tour_booking_tour_path(tour_detail.tour, tour_detail_id: tour_detail.id), class: "btn btn-primary"%>
+  </td>
+</tr>

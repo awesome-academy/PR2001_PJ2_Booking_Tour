@@ -9,4 +9,6 @@ class Tour < ApplicationRecord
   validates :name, presence: true, length: { maximum: 100 }
   validates :description, presence: true
   validates :price, :coupon, :seats, presence: true, numericality: true
+
+  ransack_alias :tour_details, :tour_details_departure_time
 end

@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-10">
+    <div class="container">      
+        <h3>All Tours Of <strong><%= @category.name %></strong></h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Counpon</th>
+              <th>Seats</th>
+              <th>Created at</th>
+              <th>Last Update</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render @tours %>
+          </tbody>
+        </table>      
+    </div>
+  </div>
+</div>

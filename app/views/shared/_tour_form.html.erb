@@ -1,14 +1,13 @@
 <%= form_for [:admin, @tour] do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <%= javascript_include_tag Ckeditor.cdn_url %>
 
   <%= f.label :name, class: "font-weight-bolder" %>
   <%= f.text_field :name, class: 'form-control' %>
 
-  <%= f.select(:category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, :prompt => 'Choose a category') %></br>
+  <%= f.select :category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, {prompt: 'Choose a category'}, {class: "custom-select"} %></br>
 
   <%= f.label :description, class: "font-weight-bolder" %>
-  <%= f.cktext_area :description, id: 'sometext' %>
+  <%= f.text_area :description, id: 'editor1' %>
 
   <%= f.label :price, class: "font-weight-bolder" %>
   <%= f.text_field :price, class: 'form-control' %>
@@ -19,7 +18,7 @@
   <%= f.label :seats, class: "font-weight-bolder" %>
   <%= f.text_field :seats, class: 'form-control' %>
 
-  <button type="button" class="btn btn-secondary" id="attach_image">Add Images</button>  
+  <button type="button" class="btn btn-secondary" id="attach_image"><i class='fas fa-plus-circle'></i> Add Images</button>  
   <div class="files_group">  
     <%= f.fields_for :images, @tour.images.new do |ff| %>
       <div>
@@ -57,4 +56,8 @@
   $("input~i").click(function(){
     $(this).parent().remove();
   })
+</script>
+
+<script>
+  CKEDITOR.replace( 'editor1');
 </script>
