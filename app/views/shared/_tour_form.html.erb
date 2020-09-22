@@ -4,10 +4,22 @@
   <%= f.label :name, class: "font-weight-bolder" %>
   <%= f.text_field :name, class: 'form-control' %>
 
-  <%= f.select :category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, {prompt: 'Choose a category'}, {class: "custom-select"} %></br>
+  <%= f.select :category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, {prompt: 'Choose a category'}, {class: "custom-select"} %>
+
+  <%= f.label :Choose_Hotels, class: "font-weight-bolder" %>
+  <%= f.select :hotels, Hotel.all.order(:name).map{|hotel| ["#{hotel.name}","#{hotel.id}"]}, {class: "custom-select"}, {multiple: true, size: 10} %></br>
 
   <%= f.label :description, class: "font-weight-bolder" %>
   <%= f.text_area :description, id: 'editor1' %>
+
+  <%= f.label :tourist_attraction, class: "font-weight-bolder" %>
+  <%= f.text_area :tourist_attraction, id: 'editor2' %>
+
+  <%= f.label :restaurant, class: "font-weight-bolder" %>
+  <%= f.text_area :restaurant, id: 'editor3' %>
+
+  <%= f.label :transport, class: "font-weight-bolder" %>
+  <%= f.text_field :transport, class: 'form-control' %>
 
   <%= f.label :price, class: "font-weight-bolder" %>
   <%= f.text_field :price, class: 'form-control' %>
@@ -60,4 +72,6 @@
 
 <script>
   CKEDITOR.replace( 'editor1');
+  CKEDITOR.replace( 'editor2');
+  CKEDITOR.replace( 'editor3');
 </script>

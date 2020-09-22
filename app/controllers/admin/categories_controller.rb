@@ -1,44 +1,45 @@
 class Admin::CategoriesController < Admin::BaseController
+  before_action :set_category, except: [:new, :index, :create]
+
   def index
     @category = Category.new
     @categories = Category.all
   end
 
   def show
-    @category = Category.find(params[:id])
     @tours = @category.tours
-  end
-
-  def new
-    @category = Category.new
   end
 
   def create
     @category = Category.new(category_params)
     if @category.save
-          flash[:success] = "Category created!"
-          redirect_to admin_categories_url
+      flash[:success] = "Category created!"
+      redirect_to admin_categories_url
     else
-      render 'new'
+      flash.now[:danger] = "Create failed!"
+      @categories = Category.all
+      render "admin/categories/index"
     end
   end
 
   def edit
-    @category = Category.find(params[:id])
+    @categories = Category.all
+    render "admin/categories/index"  
   end
 
   def update
-    @category = Category.find(params[:id])
     if @category.update(category_params)
       flash[:success] = "Category updated!"
       redirect_to admin_categories_url
     else
-      render 'edit'
+      flash.now[:danger] = "Update failed!"
+      @categories = Category.all
+      render "admin/categories/index"
     end
   end
 
   def destroy
-    Category.find(params[:id]).destroy
+    @category.destroy
     flash[:success] = "Category deleted!"
     redirect_to admin_categories_url
   end
@@ -46,6 +47,10 @@ class Admin::CategoriesController < Admin::BaseController
   private
 
   def category_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :area)
+  end
+
+  def set_category
+    @category = Category.find(params[:id])
   end
 end

@@ -1,0 +1,18 @@
+<tr id="hotel_<%= hotel.id %>">
+  <td><%= hotel.id %></td>
+  <td><%= hotel.name %></td>
+  <td><%= hotel.location %></td>
+  <td><a href="<%= hotel.link %>">Visit website of <%= hotel.name %></a></td>
+  <td><%= hotel.created_at %></td>
+  <td><%= hotel.updated_at %></td>
+  <td><%= link_to admin_hotel_path(hotel) do %>
+        <i class="fas fa-eye"></i>
+      <% end %>
+      <%= link_to edit_admin_hotel_path(hotel) do %>
+        <i class="fas fa-edit" style="color:green"></i>
+      <% end %>
+      <%= link_to admin_hotel_path(hotel), method: :delete, data: { confirm: "You sure?" } do %>
+        <i class="fa fa-trash" style="color:red"></i>
+      <% end %>
+  </td>
+</tr>

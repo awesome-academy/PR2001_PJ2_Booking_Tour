@@ -48,7 +48,11 @@
       </div>
       <div class="col">
         <h3 id="images_title"><i class='far fa-images'></i> Images</h3>
-        <div class="row"><%= render @images, tour: @tour %></div>
+        <div class="row">
+          <% @images.each do |image| %>
+            <%= render "admin/tours/images/image", image: image, tour: @tour %>
+          <% end %>    
+        </div>
         <button type="button" class="btn btn-secondary" id="add_image"><i class='fas fa-plus-circle'></i> Add Images</button>
         <%= form_for [:admin, @tour, @image] do |f| %>
           <%= render 'shared/error_messages', object: f.object %>

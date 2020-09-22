@@ -8,6 +8,7 @@ class Admin::ToursController < Admin::BaseController
   def create
     @tour = Tour.new(tour_params)
     if @tour.save
+      @tour.hotel_ids = params[:tour][:hotels]
       flash[:success] = 'Tour created!'
       redirect_to admin_tour_url(@tour)
     else
@@ -47,7 +48,7 @@ class Admin::ToursController < Admin::BaseController
   private
 
   def tour_params
-    params.require(:tour).permit(:name, :category_id, :description, :price, :coupon,
+    params.require(:tour).permit(:name, :category_id, :description, :transport, :restaurant, :tourist_attraction,:price, :coupon,
                                  :seats, images_attributes: [:id, :link])
   end
 

@@ -1,0 +1,58 @@
+<%= form_for [:admin, @hotel] do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name, class: "font-weight-bolder" %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :overview, class: "font-weight-bolder" %>
+  <%= f.text_area :overview, id: 'editor2' %>
+
+  <%= f.label :location, class: "font-weight-bolder" %>
+  <%= f.text_field :location, class: 'form-control' %>
+
+  <%= f.label :link, class: "font-weight-bolder" %>
+  <%= f.text_field :link, class: 'form-control' %>
+
+  <button type="button" class="btn btn-secondary" id="image-hotel"><i class='fas fa-plus-circle'></i> Add Images</button>  
+  <div class="group">  
+    <%= f.fields_for :images, @hotel.images.new do |ff| %>
+      <div>
+        <%= ff.file_field :link, class: "link_count" %>
+        <i class='fas fa-minus-circle' id="circle_0_image"></i>
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.submit "Confirm", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+  $("#image-hotel").click(function(){
+    imageHotel();
+  })
+  function imageHotel(){
+    var div = document.createElement("div");
+    var input = document.createElement("input");
+    var i_tag = document.createElement("i")
+    var i = $(".link_count").length;
+    input.type = "file";
+    input.id = "hotel_images_attributes_" + i + "_link";
+    input.name = "hotel[images_attributes][" + i + "][link]";
+    input.className = "link_count";
+    div.append(input);
+    $(".group").append(div);
+    i_tag.className = "fas fa-minus-circle";
+    i_tag.id = "circle_" + i + "_image"
+    div.append(i_tag);
+    $("input~i").click(function(){
+      $(this).parent().remove();
+    })
+  }
+  $("input~i").click(function(){
+    $(this).parent().remove();
+  })
+</script>
+
+<script>
+  CKEDITOR.replace( 'editor2');
+</script>

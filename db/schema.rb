@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_18_025301) do
+ActiveRecord::Schema.define(version: 2020_09_22_021751) do
 
   create_table "booking_tours", force: :cascade do |t|
     t.integer "tour_detail_id", null: false
@@ -27,10 +27,23 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
     t.index ["user_id"], name: "index_booking_tours_on_user_id"
   end
 
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.integer "sale_type"
+    t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "date_start"
+    t.date "date_end"
+    t.integer "numbers_of_use"
+    t.string "content"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "area"
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -45,12 +58,54 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
     t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
-  create_table "images", force: :cascade do |t|
-    t.integer "tour_id", null: false
+  create_table "coupons", force: :cascade do |t|
+    t.string "name"
+    t.integer "coupon_type"
+    t.integer "coupon_target_type"
+    t.integer "coupon_amount"
+    t.integer "coupon_target_id"
+    t.integer "coupon_use_count"
+    t.date "date_start"
+    t.date "date_end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "coupons_users", force: :cascade do |t|
+    t.integer "coupon_id", null: false
+    t.integer "user_id", null: false
+    t.integer "count_use_coupon"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coupon_id"], name: "index_coupons_users_on_coupon_id"
+    t.index ["user_id"], name: "index_coupons_users_on_user_id"
+  end
+
+  create_table "hotels", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.text "overview"
     t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["tour_id"], name: "index_images_on_tour_id"
+  end
+
+  create_table "hotels_tours", force: :cascade do |t|
+    t.integer "hotel_id", null: false
+    t.integer "tour_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hotel_id"], name: "index_hotels_tours_on_hotel_id"
+    t.index ["tour_id"], name: "index_hotels_tours_on_tour_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "link"
+    t.string "imageable_type"
+    t.integer "imageable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -82,6 +137,9 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "seats"
     t.integer "coupon"
+    t.text "tourist_attraction"
+    t.string "transport"
+    t.text "restaurant"
     t.index ["category_id"], name: "index_tours_on_category_id"
   end
 
@@ -109,7 +167,10 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
 
   add_foreign_key "booking_tours", "tour_details"
   add_foreign_key "booking_tours", "users"
-  add_foreign_key "images", "tours"
+  add_foreign_key "coupons_users", "coupons"
+  add_foreign_key "coupons_users", "users"
+  add_foreign_key "hotels_tours", "hotels"
+  add_foreign_key "hotels_tours", "tours"
   add_foreign_key "reviews", "tours"
   add_foreign_key "reviews", "users"
   add_foreign_key "tour_details", "tours"

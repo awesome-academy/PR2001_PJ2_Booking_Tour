@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+      <div class="container">
+        <div id="campaigns_messages">
+          <h1>All Campaigns</h1>
+          <table class="table table-hover" id="campaigns-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Content</th>
+                <th>Amount</th>
+                <th>Sale Type</th>
+                <th>Numbers of Use</th>
+                <th>Apply From</th>
+                <th>To</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render @campaigns %>
+            </tbody>
+          </table>
+        </div>
+        <%= render "admin/campaigns/campaign_form" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<tr id="campaign_<%= campaign.id %>">
+  <td><%= campaign.id %></td>
+  <td><%= campaign.name %></td>
+  <td><%= campaign.content %></td>
+  <td><%= campaign.amount %></td>
+  <td><%= campaign.sale_type %></td>
+  <td><%= campaign.numbers_of_use %></td>
+  <td><%= campaign.date_start %></td>
+  <td><%= campaign.date_end %></td>
+  <td>
+    <%= link_to admin_campaign_path(campaign), method: :delete, data: { confirm: "You sure?" } do %>
+      <i class="fa fa-trash" style="color:red"></i>
+    <% end %>
+  </td>
+</tr>

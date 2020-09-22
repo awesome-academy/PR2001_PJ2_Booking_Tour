@@ -1,0 +1,13 @@
+<div class="container">
+  <h3><%= @hotel.name %></h3>
+  <div class="hotel-info">
+    <span><%= sanitize @hotel.overview %></span>
+    <p><%= @hotel.location %></p>
+    <a href="<%= @hotel.link %>">Visit website of <%= @hotel.name %></a> 
+  </div>
+  <div class="row">
+    <% @images.each do |image| %>
+      <%= render "admin/hotels/images/image", image: image, hotel: @hotel %>
+    <% end %> 
+  </div>
+</div>

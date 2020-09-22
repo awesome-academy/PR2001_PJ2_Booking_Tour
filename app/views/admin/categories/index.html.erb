@@ -9,6 +9,7 @@
             <tr>
               <th>ID</th>
               <th>Name</th>
+              <th>Area</th>
               <th>Created at</th>
               <th>Last Update</th>
               <th>Actions</th>
@@ -18,32 +19,21 @@
             <%= render @categories %>
           </tbody>
         </table>
+        <div class="col-sm-4">
+          <div class="category-form">
+            <%= form_for [:admin, @category] do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+
+              <%= f.label :name, "Category Name" %>
+              <%= f.text_field :name, class: 'form-control' %>
+
+              <%= f.select :area, [['Northern','N'], ['Sorthern', 'S'], ['Central', 'C']], {prompt: "Choose Area"}, {class: "custom-select"} %>
+
+              <%= f.submit "Create", class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-  <div id="div-button-new">
-  <button id="button-new">New</button>
-  <div class="row" id="form-button-new">
-    <div class="col-md-6 col-md-offset-3">
-      <%= form_for ([:admin, @category]) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-
-        <%= f.label :name, "Category Name" %>
-        <%= f.text_field :name, class: 'form-control' %>
-        <%= f.submit "Create", class: "btn btn-primary" %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-
-<script>
-$(document).ready(function(){
-  $("#button-new").click(function(){
-    $("#form-button-new").toggle();
-  });
-});
-</script>

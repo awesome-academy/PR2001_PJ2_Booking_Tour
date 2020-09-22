@@ -1,23 +1,45 @@
-<div id="demo" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ul class="carousel-indicators">
-    <% @images.count.times do |n| %>
-    <li data-target="#demo" data-slide-to="<%=n+1%>" class="<%= n == 0 ? 'active' : '' %>"></li>
-    <%end%>
-  </ul>
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-    <%= render @images, tour: @tour %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      <div id="demo" class="carousel slide" data-ride="carousel" style="height: 450px">
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+          <% @images.count.times do |n| %>
+          <li data-target="#demo" data-slide-to="<%=n+1%>" class="<%= n == 0 ? 'active' : '' %>"></li>
+          <%end%>
+        </ul>
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+          <%= render @images, tour: @tour %>
+        </div>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-3" style="margin-top: 30px">
+      <div class="table-inform-tour">
+        <h5><strong>Price: <%= @tour.price %></strong></h5>
+        <p><strong>Coupon: <%= @tour.coupon %></strong></p>
+        <p><strong>Rate Average</strong></p>
+        <p><strong>Your Rating</strong></p>
+        <button type="button" class="btn" id="book-now">Book Now</button>
+      </div>
+      <div class="table-coupons">
+        <% if !current_user %>
+          <%= link_to "Login to receive attractive deals", login_path, class: "btn btn-warning btn-lg", id: "login-deals" %>
+        <% else %>
+          <h5><strong>Discount Codes</strong></h5>
+          <%= render @coupons %>
+        <% end %>
+      </div>
+    </div>  
   </div>
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
 </div>
-
 <div class="container">
   <ul class="breadcrumb" style="background-color: white">
     <li class="breadcrumb-item">
@@ -36,9 +58,43 @@
   <h3><%= @tour.name %></h3>
 
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
       <div style="background-color: #e9ecef;">
-        <%= sanitize @tour.description %>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#overview">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tourist_attraction">Tourist Attraction</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#hotel">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#restaurant">Restaurants</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div id="overview" class="container tab-pane active"><br>
+            <h3>Overview</h3>
+            <span><%= sanitize @tour.description %></span>
+          </div>
+          <div id="tourist_attraction" class="container tab-pane fade"><br>
+            <h3>Tourist Attraction</h3>
+            <span><%= sanitize @tour.tourist_attraction %></span>
+          </div>
+          <div id="hotel" class="container tab-pane fade"><br>
+            <h3>Hotels</h3>
+            <p>have 2 hotels</p>
+          </div>
+          <div id="restaurant" class="container tab-pane fade"><br>
+            <h3>Restaurants</h3>
+            <span><%= sanitize @tour.restaurant %></span>
+          </div>
+        </div>       
       </div>
       <table class="table table-hover" id="tours">
         <thead>
@@ -55,21 +111,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-sm-4">
-      <div>
-        <h5><strong>Price: <%= @tour.price %></strong></h5>
-        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
-          <strong>Coupon: <%= @tour.coupon %></strong>
-        </p>
-        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
-          <strong>Rate Average</strong>
-        </p>
-        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
-          <strong>Your Rating</strong>
-        </p>
-        <button type="button" class="btn" style="background-color: orange">Book Now</button>
-      </div>
-    </div>
+    
   </div>
 
   <div class="customer-reviews">
