@@ -63,10 +63,19 @@
         </p>
         <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
           <strong>Rate Average</strong>
+          <% if @tour.rates.count > 0 %>
+            <%= @tour.rates.average(:value).to_f %>
+          <% else %>
+            Have no rating
+          <% end %>
         </p>
         <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
           <strong>Your Rating</strong>
         </p>
+        <%= form_for [@tour, @rate] do |f| %>
+            <%= f.number_field :value %>
+            <%= f.submit "Submit" %>
+        <% end %>
         <button type="button" class="btn" style="background-color: orange">Book Now</button>
       </div>
     </div>

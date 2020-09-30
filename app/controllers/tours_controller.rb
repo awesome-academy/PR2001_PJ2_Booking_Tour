@@ -3,6 +3,7 @@ class ToursController < ApplicationController
     @tour = Tour.find(params[:id])
     @images = @tour.images
     @tour_details = @tour.tour_details
+    @rate = Rate.new
   end
 
   def index

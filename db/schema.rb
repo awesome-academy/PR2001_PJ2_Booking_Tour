@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_18_025301) do
+ActiveRecord::Schema.define(version: 2020_09_28_125338) do
 
   create_table "booking_tours", force: :cascade do |t|
     t.integer "tour_detail_id", null: false
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tour_id"], name: "index_images_on_tour_id"
+  end
+
+  create_table "rates", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "tour_id", null: false
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tour_id"], name: "index_rates_on_tour_id"
+    t.index ["user_id", "tour_id"], name: "index_rates_on_user_id_and_tour_id", unique: true
+    t.index ["user_id"], name: "index_rates_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -110,6 +121,8 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
   add_foreign_key "booking_tours", "tour_details"
   add_foreign_key "booking_tours", "users"
   add_foreign_key "images", "tours"
+  add_foreign_key "rates", "tours"
+  add_foreign_key "rates", "users"
   add_foreign_key "reviews", "tours"
   add_foreign_key "reviews", "users"
   add_foreign_key "tour_details", "tours"

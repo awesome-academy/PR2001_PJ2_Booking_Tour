@@ -3,6 +3,7 @@ class Tour < ApplicationRecord
 
   has_many :images, dependent: :destroy
   has_many :tour_details, dependent: :destroy
+  has_many :rates, dependent: :destroy
 
   accepts_nested_attributes_for :images
 
