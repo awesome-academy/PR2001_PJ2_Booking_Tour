@@ -31,4 +31,9 @@ Rails.application.routes.draw do
   resources :users, only: :show
   get "/admin", to: "admin/dash_board#home"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+ 
+  resources :tours do
+    resources :rates, only: :create
+  end
+  
 end
