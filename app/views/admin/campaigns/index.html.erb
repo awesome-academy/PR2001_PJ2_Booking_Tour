@@ -1,0 +1,39 @@
+<div class="content-wrapper">
+  <div class="container">
+    <div id="campaigns_messages">
+      <input class="form-control" id="campaignInput" type="text" placeholder="Tìm kiếm trong bảng.." style="margin-left: 550px">
+      <h4>All Campaigns</h4>
+      <div class="body">
+        <table class="table table-hover" id="campaigns-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Content</th>
+              <th>Amount</th>
+              <th>Sale Type</th>
+              <th>Numbers of Use</th>
+              <th>Apply From</th>
+              <th>To</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="campaignsTable">
+            <%= render @campaigns %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#campaignInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#campaignsTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

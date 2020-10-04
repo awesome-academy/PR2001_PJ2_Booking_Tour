@@ -1,26 +1,29 @@
 class BookingToursController < ApplicationController
   before_action :set_tour
-  before_action :set_booking_tour, only: [:show, :edit, :update]
+  before_action :set_booking_tour, only: [:show, :edit]
 
   def new
     @booking_tour = BookingTour.new
     @tour_detail = TourDetail.find(params[:tour_detail_id])
+    @coupons_get = Coupon.get_coupon_for_user(current_user.id).or(Coupon.get_coupon_for_all)
+    @coupons = @coupons_get.reject{|coupon| coupon.coupon_use_count == CouponUser.where(coupon_id: coupon.id)&.count}
   end
 
   def create
-    @booking_tour = current_user.booking_tours.build(booking_tour_params)
-    @booking_tour.price = @tour.price
-    @booking_tour.coupon = @tour.coupon
-    @booking_tour.price_total = params[:booking_tour][:quantity].to_i *
-                                  @tour.price * (1 - @tour.coupon / 100.to_f)
-    if @booking_tour.save
-      flash[:success] = "Booking success! Thank you for your booking!"
-      redirect_to tour_booking_tour_path(@tour, @booking_tour)
+    result = CreateBooking.new(@tour, current_user, booking_tour_params, params[:code], params[:id]).perform
+    if result[:success]
+      flash[:success] = result[:message]
+      redirect_to tour_booking_tour_path(@tour, result[:data][:booking_tour])
     else
+      if current_user
+        @coupons_get = Coupon.get_coupon_for_user(current_user.id).or(Coupon.get_coupon_for_all)
+        @coupons = @coupons_get&.reject{|coupon| coupon.coupon_use_count == CouponUser.where(coupon_id: coupon.id)&.count}
+      end
       @tour_detail = TourDetail.find(params[:booking_tour][:tour_detail_id])
-      flash.now[:danger] = 'Your booking is failed!'
+      @booking_tour = result[:data][:booking_tour] 
+      flash.now[:danger] = result[:message]
       render 'new'
-    end 
+    end
   end
 
   def show
@@ -32,16 +35,20 @@ class BookingToursController < ApplicationController
   end
 
   def update
-    @booking_tour.price = @tour.price
-    @booking_tour.coupon = @tour.coupon
-    @booking_tour.price_total = params[:booking_tour][:quantity].to_i *
-                                  @tour.price * (1 - @tour.coupon / 100.to_f)
-    if @booking_tour.update(booking_tour_params)
-      flash[:success] = "Update success! Thank you for your booking!"
-      redirect_to tour_booking_tour_path(@tour, @booking_tour)
+    result = CreateBooking.new(@tour, current_user, booking_tour_params, params[:code], params[:id]).update
+    if result[:success]
+      flash[:success] = result[:message]
+      redirect_to tour_booking_tour_path(@tour, result[:data][:booking_tour])
     else
-      @tour_detail = @booking_tour.tour_detail
-      flash.now[:danger] = 'Your update is failed!'
+      @category = @tour.category
+      @images = @category.images
+      if current_user
+        @coupons_get = Coupon.get_coupon_for_user(current_user.id).or(Coupon.get_coupon_for_all)
+        @coupons = @coupons_get&.reject{|coupon| coupon.coupon_use_count == CouponUser.where(coupon_id: coupon.id)&.count}
+      end
+      @tour_detail = TourDetail.find(params[:booking_tour][:tour_detail_id])
+      @booking_tour = result[:data][:booking_tour] 
+      flash.now[:danger] = result[:message]
       render 'edit'
     end
   end
@@ -49,7 +56,7 @@ class BookingToursController < ApplicationController
   private
 
   def booking_tour_params
-    params.require(:booking_tour).permit(:tour_detail_id, :quantity, :price_total)
+    params.require(:booking_tour).permit(:tour_detail_id, :quantity, :option)
   end
 
   def set_tour

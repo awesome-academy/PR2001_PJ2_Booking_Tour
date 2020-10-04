@@ -1,73 +1,117 @@
-<div id="demo" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ul class="carousel-indicators">
-    <% @images.count.times do |n| %>
-    <li data-target="#demo" data-slide-to="<%=n+1%>" class="<%= n == 0 ? 'active' : '' %>"></li>
-    <%end%>
-  </ul>
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-    <%= render @images, tour: @tour %>
-  </div>
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
-</div>
-
 <div class="container">
-  <ul class="breadcrumb" style="background-color: white">
-    <li class="breadcrumb-item">
-      <%= link_to "/" do %>
-        <i class="fa fa-home"></i> Home
-      <% end %>
-    </li>
-    <li class="breadcrumb-item">
-      <%= link_to @tour.category.name, category_path(@tour.category) %>
-    </li>
-    <li class="breadcrumb-item">
-      <%= link_to @tour.name, category_tour_path(@tour.category, @tour) %>
-    </li>
-  </ul>
-
-  <h3><%= @tour.name %></h3>
-
   <div class="row">
-    <div class="col-sm-8">
-      <div style="background-color: #e9ecef;">
-        <%= sanitize @tour.description %>
+    <div class="col-sm-9">
+      <div id="demo" class="carousel slide" data-ride="carousel" style="height: 450px">
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+          <% @images.count.times do |n| %>
+          <li data-target="#demo" data-slide-to="<%=n+1%>" class="<%= n == 0 ? 'active' : '' %>"></li>
+          <%end%>
+        </ul>
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+          <%= render @images, category: @category %>
+        </div>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
       </div>
-      <table class="table table-hover" id="tours">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Departure</th>
-            <th>Return</th>
-            <th>Seat(s) Available</th>
-            <th>Your Choice</th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= render @tour_details %>
-        </tbody>
-      </table>
     </div>
-    <div class="col-sm-4">
-      <div>
-        <h5><strong>Price: <%= @tour.price %></strong></h5>
-        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
-          <strong>Coupon: <%= @tour.coupon %></strong>
-        </p>
-        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
-          <strong>Rate Average</strong>
-        </p>
-        <p style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e9ecef;">
-          <strong>Your Rating</strong>
-        </p>
-        <button type="button" class="btn" style="background-color: orange">Book Now</button>
+    <div class="col-sm-3" style="margin-top: 30px">
+      <div class="suggest-book">
+        <div class="table-inform-tour">
+          <h5><strong>Giá: <%= number_to_currency(@tour.price * (100 - @tour.coupon)/100, unit: "vnđ", precision: 0, format: "%n %u") %></strong></h5>
+          <% if @tour.coupon > 0 %>
+            <p><strong>Giá cũ: <strike><%= number_to_currency(@tour.price, unit: "vnđ", precision: 0, format: "%n %u") %></strike></strong></p>
+          <% end %>
+          <p><strong>Đánh giá trung bình</strong></p>
+          <p><strong>Đánh giá của bạn</strong></p>
+          <%= link_to "Book Now", "#book-tour", class: "btn btn-warning"%>
+        </div>
+        <div class="table-coupons">
+          <% if !current_user %>
+            <%= link_to "Login to receive attractive deals", login_path(previous_url: request.url), class: "btn btn-warning btn-lg", id: "login-deals" %>
+          <% else %>
+            <% if @coupons.present? %>
+              <h5><strong>Discount Codes</strong></h5>
+              <%= render @coupons %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      <ul class="breadcrumb">
+        <li>
+          <%= link_to "/" do %>
+            <i class="fa fa-home"></i> Trang chủ
+          <% end %>
+        </li>
+        <li>
+          <%= link_to @tour.category.name, category_tours_path(@tour.category) %>
+        </li>
+        <li>
+          <%= link_to @tour.name, category_tour_path(@tour.category, @tour) %>
+        </li>
+      </ul>
+      <h3><strong><%= @tour.name %></strong></h3>
+      <div class="info-detail-tour" style="background-color: #e9ecef;">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#overview"><i class='far fa-file-alt'></i> Giới thiệu chung</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#itinerary"><i class='fas fa-map-marked-alt'></i> Lịch trình</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#hotel"><i class='fas fa-hotel'></i> Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#price_info"><i class='fas fa-utensils'></i> Chính sách</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="text-align: justify;">
+          <div id="overview" class="container tab-pane active"><br>
+            <span><%= @category.overview %></span>
+          </div>
+          <div id="itinerary" class="container tab-pane fade"><br>
+            <span><%= @tour.itinerary %></span>
+            <span><%= @tour.transport %></span>
+          </div>
+          <div id="hotel" class="container tab-pane fade"><br>
+            <p>have 2 hotels</p>
+          </div>
+          <div id="price_info" class="container tab-pane fade"><br>
+            <span><%= @tour.price_info %></span>
+          </div>
+        </div>       
+      </div>
+      <div class="table-time" id="book-tour">
+        <h5>Time Table</h5>
+        <table class="table table-hover" id="tours">
+          <thead>
+            <tr>
+              <th>Departure</th>
+              <th>Return</th>
+              <th>Seat(s) Available</th>
+              <th>Your Choice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render @tour_details, tour: @tour %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

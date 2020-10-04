@@ -10,7 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_18_025301) do
+ActiveRecord::Schema.define(version: 2020_10_04_113053) do
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "booking_tours", force: :cascade do |t|
     t.integer "tour_detail_id", null: false
@@ -23,34 +54,78 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
     t.integer "payment_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "option"
     t.index ["tour_detail_id"], name: "index_booking_tours_on_tour_detail_id"
     t.index ["user_id"], name: "index_booking_tours_on_user_id"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.integer "sale_type"
+    t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.date "date_start"
+    t.date "date_end"
+    t.integer "numbers_of_use"
+    t.string "content"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "area"
+    t.text "overview"
   end
 
-  create_table "ckeditor_assets", force: :cascade do |t|
-    t.string "data_file_name", null: false
-    t.string "data_content_type"
-    t.integer "data_file_size"
-    t.string "type", limit: 30
-    t.integer "width"
-    t.integer "height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["type"], name: "index_ckeditor_assets_on_type"
+  create_table "coupon_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "coupon_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "booking_tour_id"
   end
 
-  create_table "images", force: :cascade do |t|
+  create_table "coupons", force: :cascade do |t|
+    t.string "name"
+    t.integer "coupon_type"
+    t.integer "coupon_target_type"
+    t.integer "coupon_amount"
+    t.integer "coupon_target_id"
+    t.integer "coupon_use_count"
+    t.date "date_start"
+    t.date "date_end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hotel_tours", force: :cascade do |t|
+    t.integer "hotel_id", null: false
     t.integer "tour_id", null: false
+    t.integer "extra_fee"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hotel_id"], name: "index_hotel_tours_on_hotel_id"
+    t.index ["tour_id"], name: "index_hotel_tours_on_tour_id"
+  end
+
+  create_table "hotels", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.text "overview"
     t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["tour_id"], name: "index_images_on_tour_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "link"
+    t.string "imageable_type"
+    t.integer "imageable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -75,13 +150,15 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
 
   create_table "tours", force: :cascade do |t|
     t.string "name"
-    t.text "description"
+    t.text "itinerary"
     t.integer "price"
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "seats"
     t.integer "coupon"
+    t.text "price_info"
+    t.string "transport"
     t.index ["category_id"], name: "index_tours_on_category_id"
   end
 
@@ -107,9 +184,11 @@ ActiveRecord::Schema.define(version: 2020_09_18_025301) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "booking_tours", "tour_details"
   add_foreign_key "booking_tours", "users"
-  add_foreign_key "images", "tours"
+  add_foreign_key "hotel_tours", "hotels"
+  add_foreign_key "hotel_tours", "tours"
   add_foreign_key "reviews", "tours"
   add_foreign_key "reviews", "users"
   add_foreign_key "tour_details", "tours"

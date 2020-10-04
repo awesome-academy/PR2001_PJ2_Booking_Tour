@@ -1,0 +1,118 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+  <%= link_to admin_path, class: "brand-link", id: "logo-admin" do %>
+    <%= image_tag("logo.png", alt: "AdminLTE Logo", style: "opacity: .8" ) %>
+  <% end %>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Dashboard
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="./index.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v1</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="./index2.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v2</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="./index3.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Dashboard v3</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+              Quản lý sản phẩm
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <%= link_to admin_tours_path, class: "nav-link" do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý tours</p>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_categories_path, class: "nav-link" do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý categories</p>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+              Quản lý liên quan
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <%= link_to admin_users_path, class: "nav-link" do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý khách hàng</p>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to admin_hotels_path, class: "nav-link" do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý hotels</p>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+              Quản lý giao dịch
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <%= link_to "#", class: "nav-link" do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý đặt tour</p>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "#", class: "nav-link" do %>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Quản lý doanh thu</p>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+</aside>

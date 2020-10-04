@@ -31,6 +31,11 @@ gem 'whenever', require: false
 gem 'ransack'
 #gem 'ckeditor'
 gem 'carrierwave'
+gem 'sidekiq-cron'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'chartkick'
+gem 'groupdate'
 # Use Active Storage variant
 # gem "image_processing", "~> 1.2"
 

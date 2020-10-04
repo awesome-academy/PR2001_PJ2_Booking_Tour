@@ -13,16 +13,69 @@
  *= require_tree .
  *= require_self
  */
+ //= require actiontext
  @import "bootstrap";
 
  /* special tags */
- h1,h2,h3 {
+ h1,h2,h3,h4,h5 {
   text-align: center;
+  margin-bottom: 20px;
+  padding-top: 10px;
  }
+.btn-submit {margin-top: 25px; text-align: center; padding-bottom: 50px;}
 
+a:hover {text-decoration: none;}
+
+
+/*header*/
+
+.top-head {
+  width: 100vw;
+  position: fixed;
+  z-index: 4;
+  top: 0; 
+ .navbar {
+    margin: 0;
+    padding: 0;
+    .navbar-brand {
+      height: 50px;
+      padding: 0;
+      padding-left: 10px;
+    }
+    .nav-item {
+      padding-right: 20px;
+      .nav-link{
+        color: black;
+        &:hover {
+          color: #f85959
+        }
+        i{
+          color: #f85959
+        }
+      }
+    }
+  }
+}
+
+.top-head .dropdown-item:hover {
+    color: #f85959
+  }
+ 
+#pikachu:hover {
+  .main-head img {
+    transform: scale(1.2);
+  }
+}
+
+#title-home {
+  font-size: 60px;
+  text-shadow: 0 1px 1px #333;
+  font-weight: 700;
+  margin-top: 200px
+}
 
 /* registrations */
-.registrations_form {
+.registrations_form, .confirmation_form {
   input {
     border-radius: 20px;
     margin-bottom: 10px;
@@ -42,11 +95,20 @@
     display: block;
     color: white;
     padding-top: 6px;
-    &:hover { color: black;}
-    text-decoration: none;
+    &:hover { color: black; text-decoration: none;}
   };
   height: 38px;
   text-align: center;
+}
+
+#bg-categories {
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 260px;
+  margin-top: 50px;
+  position: relative;
 }
 
 /////*home*/////
@@ -64,6 +126,28 @@
   margin-top: 25px;
 }
 
+.tour-name {
+  display: block;
+  height: 45px;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  &:hover {color: #007bff}
+}
+
+.suggest-book {
+  width: 265px;
+  margin-left: -10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+  position: fixed;
+  margin-right: 80px;
+  top: 70px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
 .media {
   p {
     font-size: 16px;
@@ -78,15 +162,9 @@
 .size300 {height: 300px}
 #size630 {height: 630px}
 
- #categories {
-  border-collapse: collapse;
-  width: 100%;
-  th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-tr:hover {background-color:#f5f5f5;}
+#login-deals {
+  color: white;
+  font-weight: bold
 }
 
 /*search-form*/
@@ -98,13 +176,17 @@ tr:hover {background-color:#f5f5f5;}
         margin-right: 20px;
         input {
           height: 50px;
+          border-radius: 0;
         }
-        .custom-select {height: 50px;}
+        .custom-select {height: 50px; border-radius: 0;}
         label {color: white; margin-right: 5px;}
-      
       }
   }
 }
+
+#inputSearch {width: 418px}
+
+.ftco-section .icon {margin-top: 25px}
 
 #search {
   color: white;
@@ -116,6 +198,7 @@ tr:hover {background-color:#f5f5f5;}
   &:hover { background-color: #f85959d6}
   border-color: #f85959;
   margin-left: 6px;
+  border-radius: 0;
 }
 #date {padding-right: 0}
 
@@ -123,6 +206,13 @@ footer {
   .foot-icons{
     ul {display: inline-flex}
   }
+}
+
+#all-categories {
+  display: block;
+  margin-left: 400px;
+  margin-right: 400px;
+  border-radius: 0;
 }
 
 
@@ -134,10 +224,60 @@ footer {
 }
 
 
+/*show-tour*/
+.table-inform-tour {
+  p {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #e9ecef;
+  }
+}
+#book-now { background-color: orange }
+.table-coupons {
+  margin-top: 30px;
+  h5 {text-align: center;}
+  p {
+  text-align: center;
+  background-color: orange;
+  color: white;
+  font-size: x-large
+  }
+}
+
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: black;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: #e0a800;
+  text-decoration: none;
+}
+
 //* admin *//
 
+.body {
+  font-size: 15px;
+  select {
+    width: 350px;
+  }
+}
+
 /* show tour */
-#time_title, #images_title {
+#time_title, #images_title, #form-time {
   margin-top: 30px;
   margin-bottom: 20px;
   padding-top: 10px;
@@ -145,6 +285,11 @@ footer {
 }
 
 #time_title {
+  background-color: #ffc107;
+  color: white;
+}
+
+#form-time {
   background-color: #28a745;
   color: white;
 }
@@ -154,3 +299,20 @@ footer {
   color: white;
 }
 
+#logo-admin {background-color: aliceblue;}
+
+
+
+/*dashboard*/
+.small-box {
+  h4, p { color: white; font-weight: bold;};
+  h4 {margin-bottom: 0; text-align: left;};
+  p {font-size: 15px}
+}
+.icon {margin-top: 0}
+
+
+
+
+/*paginate*/
+.pagination ul li {margin-right: 10px}

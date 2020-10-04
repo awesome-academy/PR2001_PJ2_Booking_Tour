@@ -1,26 +1,9 @@
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="padding-top: 30px">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
@@ -28,12 +11,12 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h4>150</h4>
 
-                <p>New Orders</p>
+                <p>Tổng doanh thu</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class='fas fa-dollar-sign'></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -43,12 +26,12 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h4>53</h4>
 
-                <p>Bounce Rate</p>
+                <p>Tổng đơn</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class='fas fa-shopping-bag'></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -58,14 +41,16 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h4><%= User.all.count %></h4>
 
-                <p>User Registrations</p>
+                <p>Số thành viên</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class='fas fa-users'></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <%= link_to admin_users_path, class: "small-box-footer" do %>
+                More info <i class="fas fa-arrow-circle-right"></i>
+              <% end %>
             </div>
           </div>
           <!-- ./col -->
@@ -73,14 +58,16 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h4><%= Category.all.count %></h4>
 
-                <p>Unique Visitors</p>
+                <p>Places</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class='fas fa-map-marked-alt'></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <%= link_to admin_categories_path, class: "small-box-footer" do %>
+                More info <i class="fas fa-arrow-circle-right"></i>
+              <% end %>
             </div>
           </div>
           <!-- ./col -->
@@ -88,3 +75,31 @@
         <!-- /.row -->
       </div>
     </section>
+    <div class="row" style="margin-top: 20px">
+      <div class="col-sm-8">
+        <div class="diagram-tours">
+          <div class="btn-group" style="float: right;">
+            <button type="button" class="btn btn-outline-success" id="btn-day">By day</button>
+            <button type="button" class="btn btn-outline-warning" id="btn-month">By month</button>
+          </div>
+          <div id="group-by-day"><%= line_chart Tour.group_by_day(:created_at).count %></div>
+          <div id="group-by-month" style="display: none;"><%= line_chart Tour.group_by_month(:created_at).count %></div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="diagram-circle">
+          <%= pie_chart Category.joins(:tours).group(:area).count %>
+        </div>
+      </div>
+  </div>
+
+  <script type="text/javascript">
+  $("#btn-month").click(function(){
+    $("#group-by-day").hide()
+    $("#group-by-month").show()
+  });
+  $("#btn-day").click(function(){
+    $("#group-by-month").hide()
+    $("#group-by-day").show()
+  })
+</script>

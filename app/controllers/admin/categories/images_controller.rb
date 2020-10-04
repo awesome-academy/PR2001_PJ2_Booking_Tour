@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
-class Admin::ImagesController < Admin::BaseController
-  before_action :set_tour
+class Admin::Categories::ImagesController < Admin::CategoriesController
+  before_action :set_category
 
   def create
     respond_to do |format|
@@ -9,35 +7,31 @@ class Admin::ImagesController < Admin::BaseController
         begin
           ActiveRecord::Base.transaction do
             params[:images][:link].each do |image|
-              @image = Image.new(tour_id: @tour.id, link: image)
+              @image = Image.new(imageable_id: @category.id, imageable_type: "Category" , link: image)
               @image.save!
             end
           end
           format.html do
             flash[:success] = 'Upload is success!'
-            redirect_to admin_tour_path(@tour)
+            redirect_to admin_category_path(@category)
           end
           format.js
         end     
       else
-        @image = @tour.images.build
+        @image = @category.images.build
         @image.valid?
         format.html do
-          @images = @tour.images.reject{ |a| a.id == nil }
-          @tour_detail = TourDetail.new
-          @tour_details = @tour.tour_details
+          @images = @category.images.reject{ |a| a.id == nil }
           flash.now[:danger] = 'Upload is failed!'
-          render "admin/tours/show"
+          render "admin/categories/show"
         end
         format.js
       end
       rescue ActiveRecord::RecordInvalid
         format.html do
-          @images = @tour.images.reject{ |a| a.id == nil }
-          @tour_detail = TourDetail.new
-          @tour_details = @tour.tour_details
+          @images = @category.images.reject{ |a| a.id == nil }
           flash.now[:danger] = 'Upload is failed!'
-          render "admin/tours/show"
+          render "admin/categories/show"
         end
         format.js
     end
@@ -49,15 +43,14 @@ class Admin::ImagesController < Admin::BaseController
     respond_to do |format|
       format.html do
         flash[:success] = 'Your image is deleted!'
-        redirect_to admin_tour_path(@tour)
+        redirect_to admin_category_path(@category)
       end
       format.js
     end
   end
 
   private
-
-  def set_tour
-    @tour = Tour.find(params[:tour_id])
+  def set_category
+    @category = Category.find(params[:category_id])
   end
 end

@@ -1,0 +1,50 @@
+<%= form_for [:admin, @category] do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name, "Category Name" %>
+  <%= f.text_field :name, class: 'form-control' %><br>
+
+  <%= f.select :area, [['Northern','N'], ['Sorthern', 'S'], ['Central', 'C']], {prompt: "Choose Area"}, {class: "custom-select"} %><br>
+
+  <%= f.label :overview, class: "font-weight-bolder" %>
+  <%= f.rich_text_area :overview, id: 'editor' %></br>
+
+  <button type="button" class="btn btn-secondary" id="attach_image"><i class='fas fa-plus-circle'></i> Add Images</button> 
+  <div class="files_group">  
+    <%= f.fields_for :images, @category.images.new do |ff| %>
+      <div>
+        <%= ff.file_field :link, class: "link_field" %><i class='fas fa-minus-circle' id="minus_0_image"></i>
+      </div>
+    <% end %>
+  </div>
+  <div class="btn-submit">
+    <%= f.submit "Confirm", class: "btn btn-success btn-block" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $("#attach_image").click(function(){
+    attachImagefield();
+  })
+  function attachImagefield(){
+    var div = document.createElement("div");
+    var input = document.createElement("input");
+    var i_tag = document.createElement("i")
+    var i = $(".link_field").length;
+    input.type = "file";
+    input.id = "tour_images_attributes_" + i + "_link";
+    input.name = "tour[images_attributes][" + i + "][link]";
+    input.className = "link_field";
+    div.append(input);
+    $(".files_group").append(div);
+    i_tag.className = "fas fa-minus-circle";
+    i_tag.id = "minus_" + i + "_image"
+    div.append(i_tag);
+    $("input~i").click(function(){
+      $(this).parent().remove();
+    })
+  }
+  $("input~i").click(function(){
+    $(this).parent().remove();
+  })
+</script>

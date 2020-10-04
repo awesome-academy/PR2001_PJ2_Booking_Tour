@@ -2,62 +2,60 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.label :name, class: "font-weight-bolder" %>
-  <%= f.text_field :name, class: 'form-control' %>
+  <%= f.text_field :name, class: 'form-control' %></br>
 
-  <%= f.select :category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, {prompt: 'Choose a category'}, {class: "custom-select"} %></br>
-
-  <%= f.label :description, class: "font-weight-bolder" %>
-  <%= f.text_area :description, id: 'editor1' %>
-
-  <%= f.label :price, class: "font-weight-bolder" %>
-  <%= f.text_field :price, class: 'form-control' %>
-
-  <%= f.label :coupon, class: "font-weight-bolder" %>
-  <%= f.text_field :coupon, class: 'form-control' %>
-
-  <%= f.label :seats, class: "font-weight-bolder" %>
-  <%= f.text_field :seats, class: 'form-control' %>
-
-  <button type="button" class="btn btn-secondary" id="attach_image"><i class='fas fa-plus-circle'></i> Add Images</button>  
-  <div class="files_group">  
-    <%= f.fields_for :images, @tour.images.new do |ff| %>
-      <div>
-        <%= ff.file_field :link, class: "link_field" %>
-        <i class='fas fa-minus-circle' id="minus_0_image"></i>
+  <%= f.select :category_id, Category.all.map{|category| ["#{category.name}","#{category.id}"]}, {prompt: 'Choose a category'}, {class: "custom-select"} %></br></br>
+  <div class="row">
+    <div class="col-md-5">
+      
+        <%= f.label :default_hotel, class: "font-weight-bolder" %><br>
+        <%= f.select :hotel_ids, Hotel.all.order(:name).map{|hotel| ["#{hotel.name}","#{hotel.id}"]}, {}, {class: "custom-select", name: 'tour[hotel][][id]'} %>
+        <%= hidden_field_tag :extra_fee, 0, {name: "tour[hotel][][extra_fee]"} %>
+    </div>
+    <div class="col-md-7">
+      <h6><strong>Options</strong></h6>
+      <div class="form-inline">
+        <%= f.select :hotel_ids, Hotel.all.order(:name).map{|hotel| ["#{hotel.name}","#{hotel.id}"]}, {prompt: "Option 1"}, {class: "custom-select", name: 'tour[hotel][][id]'} %>
+        <%= number_field_tag :extra_fee, nil, {name: "tour[hotel][][extra_fee]"} %>
       </div>
-    <% end %>
+      <div class="form-inline">
+        <%= f.select :hotel_ids, Hotel.all.order(:name).map{|hotel| ["#{hotel.name}","#{hotel.id}"]}, {prompt: "Option 2"}, {class: "custom-select", name: 'tour[hotel][][id]'} %>
+        <%= number_field_tag :extra_fee, nil, {name: "tour[hotel][][extra_fee]"} %>
+      </div>
+    </div>
   </div>
 
-  <%= f.submit "Confirm", class: "btn btn-primary" %>
+  <%= f.label :itinerary, class: "font-weight-bolder" %>
+  <%= f.rich_text_area :itinerary %></br>
+
+  <%= f.label :price_info, class: "font-weight-bolder" %>
+  <%= f.rich_text_area :price_info %></br>
+
+  <div class="row">
+    <div class="col">
+      <%= f.label :transport, class: "font-weight-bolder" %>
+      <%= f.text_field :transport, class: 'form-control' %></br>
+   
+      <%= f.label :price, class: "font-weight-bolder" %>
+      <%= f.number_field :price, class: 'form-control' %></br>
+    </div>
+    <div class="col">
+      <%= f.label :coupon, class: "font-weight-bolder" %>
+      <%= f.number_field :coupon, class: 'form-control' %></br>
+   
+      <%= f.label :seats, class: "font-weight-bolder" %>
+      <%= f.number_field :seats, class: 'form-control' %></br>
+    </div>
+  </div>
+  <div class="btn-submit">
+    <%= f.submit "Confirm", class: "btn btn-success btn-block" %>
+  </div>
 <% end %>
 
 <script type="text/javascript">
-  $("#attach_image").click(function(){
-    attachImagefield();
+  $("#tour_hotel_ids_1").change(function(){
+    if $("#tour_hotel_ids_0") == $("#tour_hotel_ids_1")
+      alert("Trung lap")
+    end 
   })
-  function attachImagefield(){
-    var div = document.createElement("div");
-    var input = document.createElement("input");
-    var i_tag = document.createElement("i")
-    var i = $(".link_field").length;
-    input.type = "file";
-    input.id = "tour_images_attributes_" + i + "_link";
-    input.name = "tour[images_attributes][" + i + "][link]";
-    input.className = "link_field";
-    div.append(input);
-    $(".files_group").append(div);
-    i_tag.className = "fas fa-minus-circle";
-    i_tag.id = "minus_" + i + "_image"
-    div.append(i_tag);
-    $("input~i").click(function(){
-      $(this).parent().remove();
-    })
-  }
-  $("input~i").click(function(){
-    $(this).parent().remove();
-  })
-</script>
-
-<script>
-  CKEDITOR.replace( 'editor1');
 </script>
