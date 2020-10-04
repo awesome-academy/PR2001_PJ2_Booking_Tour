@@ -1,0 +1,40 @@
+<div class="content-wrapper">
+  <div class="container">
+    <h3><strong>New Campaign</strong></h2>
+    <div class="body">
+      <div id="campaign_form">
+        <%= form_for [:admin, @campaign] do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+
+          <%= f.label :content %>
+          <%= f.text_field :content, class: 'form-control' %><br>
+
+          <%= f.select :sale_type, [["%", "percent"], ["$", "number"]], {prompt: "Choose type of sale"}, {class: "custom-select"} %><br>
+
+          <div class="row">
+            <div class="col">
+              <%= f.label :amount %>
+              <%= f.number_field :amount, class: "form-control" %>
+
+              <%= f.label :numbers_of_use %>
+              <%= f.number_field :numbers_of_use, class: "form-control" %> 
+            </div>
+            <div class="col">
+              <%= f.label :date_start %>
+              <%= f.date_field :date_start, class: 'form-control' %>
+
+              <%= f.label :date_end %>
+              <%= f.date_field :date_end, class: 'form-control' %>
+            </div>  
+          </div>
+          <div class="btn-submit">
+            <%= f.submit "Confirm", class: "btn btn-success btn-block" %>            
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

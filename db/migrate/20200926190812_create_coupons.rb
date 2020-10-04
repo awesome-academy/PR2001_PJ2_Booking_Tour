@@ -7,8 +7,8 @@ class CreateCoupons < ActiveRecord::Migration[6.0]
       t.integer :coupon_amount
       t.integer :coupon_target_id
       t.integer :coupon_use_count
-      t.date :coupon_start_date
-      t.date :coup_end_date
+      t.date :date_start
+      t.date :date_end
       t.timestamps
     end
   end

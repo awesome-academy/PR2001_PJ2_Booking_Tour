@@ -1,7 +1,12 @@
 class Admin::CampaignsController < Admin::BaseController
+  layout "admin"
   def index
     @campaigns = Campaign.all
     @campaign = Campaign.new
+  end
+
+  def new
+    @campaign = Campaign.new    
   end
 
   def create

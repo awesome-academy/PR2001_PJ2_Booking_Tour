@@ -1,46 +1,38 @@
 <div class="container">
   <div class="col-md-4 col-lg-6" style="margin: auto;">
-    <h3><%= current_user.name %> Please continue complete the form below </h3>
+    <h5><strong>Thông tin chi tiết</strong></h5>
     <table class="table table-striped">
       <tr>
-        <th>Customer Name</th>
+        <th>Tên khách hàng:</th>
         <td><%= current_user.name %></td>  
       </tr>
       <tr>
-        <th>Email</th>
+        <th>Email:</th>
         <td><%= current_user.email %></td> 
       </tr>
       <tr>
-        <th>Tour</th>
+        <th>Tour:</th>
         <td><%= @tour.name %></td>  
       </tr>
       <tr>
-        <th>Departure Time</th>
+        <th>Ngày khởi hành:</th>
         <td><%= @tour_detail.departure_time %></td> 
       </tr>
       <tr>
-        <th>Return Time</th>
+        <th>Ngày kết thúc:</th>
         <td><%= @tour_detail.return_time %></td> 
       </tr>
       <tr>
-        <th>Price($)</th>
-        <td id="get-price"><%= @tour.price %></td> 
+        <th>Giá đơn:</th>
+        <td><%= number_to_currency(@tour.price * (100 - @tour.coupon)/100, unit: "vnđ", precision: 0, format: "%n %u") %></td> 
       </tr>
       <tr>
-        <th>Coupon(%)</th>
-        <td><%= @tour.coupon %></td>  
-      </tr>
-      <tr>
-        <th>Available Seat(s)</th>
-        <td><%= @tour.coupon %></td>  
-      </tr>
-      <tr>
-        <th>Quantity</th>
+        <th>Số người đi:</th>
         <td><%= @booking_tour.quantity %></td>  
       </tr>
-      <tr>
-        <th>Tatal($)(da tru coupon)</th>
-        <td><%= @booking_tour.price_total %></td> 
+      <tr style=" background-color: green; color: white;">
+        <th>Tổng tiền:</th>
+        <td><%= number_to_currency(@booking_tour.price_total, unit: "vnđ", precision: 0, format: "%n %u") %></td> 
       </tr>
     </table>
   </div>

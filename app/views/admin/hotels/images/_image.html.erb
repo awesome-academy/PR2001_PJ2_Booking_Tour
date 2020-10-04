@@ -1,8 +1,8 @@
-<div class="col-sm-2", id="image_<%= image.id%>">
+<div class="col-sm-3", id="image_<%= image.id%>">
   <div class="card">
     <%= link_to admin_hotel_image_path(hotel, image) , method: :delete, data: { confirm: "You sure?" } do %>
       <i class='fas fa-times-circle'></i>
     <% end %>
-    <%= image_tag(image.link_url.to_s, class: "card-img-top") %>
+    <%= image_tag(image.link_url.to_s, class: "card-img-top", height: "80px") %>
   </div>
 </div>

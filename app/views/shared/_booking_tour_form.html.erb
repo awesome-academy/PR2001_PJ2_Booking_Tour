@@ -1,0 +1,44 @@
+<table class="table table-striped">
+  <thead>
+    <th>Departure Time</th>
+    <th>Return Time</th>
+    <th>Price</th>
+    <th>Available Seat(s)</th>
+    <th>Hotel(Default)</th>
+  </thead>
+  <tr>
+    <td><%= tour_detail.departure_time %></td>
+    <td><%= tour_detail.return_time %></td>
+    <td><%= number_to_currency(tour.price * (100 - tour.coupon)/100, unit: "vnđ", precision: 0, format: "%n %u") %></td>
+    <td><%= seats %></td>
+    <td>
+      <% id = tour.hotel_tours.select{|hotel| hotel.extra_fee == 0 }.first.hotel_id %>
+      <%= Hotel.find(id).name %>
+    </td>
+  </tr>
+</table>
+<%= form_for [tour, booking_tour], class: "form-inline" do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <% options_hotel = tour.hotel_tours.reject{|hotel| hotel.extra_fee == 0} %>
+  <% hotels = options_hotel.map{|option_hotel| ["#{Hotel.find(option_hotel.hotel_id).name} + #{number_to_currency(option_hotel.extra_fee, unit: "vnđ", precision: 0, format: "%n %u")}", "#{option_hotel.hotel_id}"]} %>
+
+  <div class="row">
+    <div class="col">
+      <%= f.label :options_for_hotel %>
+      <%= f.select :option, hotels, {prompt: "Options for hotel"},{class: "custom-select"} %>
+    </div>
+    <div class="col">
+      <div><%= f.label :quantity %></div>
+      <%= f.number_field :quantity, min: "1", max: "#{seats}", :style => "width: -moz-available;" %>
+    </div>
+    <div class="col">
+      <div><%= f.label :discount_code %></div>
+      <%= text_field_tag :code,'', :style => "width: -moz-available;" %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :tour_detail_id, value: @tour_detail.id %>
+  
+  <div class="btn-submit"><%= f.submit "Booking", class: "btn btn-warning btn-block" %></div>
+<% end %>

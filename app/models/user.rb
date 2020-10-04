@@ -24,7 +24,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: false }
 
   has_many :booking_tours, dependent: :destroy
-  has_and_belongs_to_many :coupons
 
   private
   # Converts email to all lower-case.

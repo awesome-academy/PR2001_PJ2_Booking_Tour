@@ -5,7 +5,7 @@
   <%= f.text_field :name, class: 'form-control' %>
 
   <%= f.label :overview, class: "font-weight-bolder" %>
-  <%= f.text_area :overview, id: 'editor2' %>
+  <%= f.rich_text_area :overview %>
 
   <%= f.label :location, class: "font-weight-bolder" %>
   <%= f.text_field :location, class: 'form-control' %>
@@ -17,13 +17,13 @@
   <div class="group">  
     <%= f.fields_for :images, @hotel.images.new do |ff| %>
       <div>
-        <%= ff.file_field :link, class: "link_count" %>
-        <i class='fas fa-minus-circle' id="circle_0_image"></i>
+        <%= ff.file_field :link, class: "link_count" %><i class='fas fa-minus-circle' id="circle_0_image"></i>
       </div>
     <% end %>
   </div>
-
-  <%= f.submit "Confirm", class: "btn btn-primary" %>
+  <div class="btn-submit">
+    <%= f.submit "Confirm", class: "btn btn-success btn-block" %>
+  </div>
 <% end %>
 
 <script type="text/javascript">
@@ -51,8 +51,4 @@
   $("input~i").click(function(){
     $(this).parent().remove();
   })
-</script>
-
-<script>
-  CKEDITOR.replace( 'editor2');
 </script>

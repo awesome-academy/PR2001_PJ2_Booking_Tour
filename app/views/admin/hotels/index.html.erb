@@ -1,9 +1,9 @@
-<div class="row">
-  <div class="col-sm-2"></div>
-  <div class="col-sm-10">
-    <div class="container">
-      <div id="hotel_messages">
-        <h3><strong>All Hotels</strong></h3>
+<div class="content-wrapper">
+ <div class="container">
+    <div id="hotel_messages">
+      <input class="form-control" id="hotelInput" type="text" placeholder="Tìm kiếm trong bảng.." style="margin-left: 550px">
+      <h4><strong>All Hotels</strong></h4>
+      <div class="body">
         <table class="table table-hover" id="hotels">
           <thead>
             <tr>
@@ -16,7 +16,7 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="hotelsTable">
             <%= render @hotels %>
           </tbody>
         </table>
@@ -24,3 +24,14 @@
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function(){
+  $("#hotelInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#hotelsTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

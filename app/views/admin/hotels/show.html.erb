@@ -1,13 +1,23 @@
-<div class="container">
-  <h3><%= @hotel.name %></h3>
-  <div class="hotel-info">
-    <span><%= sanitize @hotel.overview %></span>
-    <p><%= @hotel.location %></p>
-    <a href="<%= @hotel.link %>">Visit website of <%= @hotel.name %></a> 
-  </div>
-  <div class="row">
-    <% @images.each do |image| %>
-      <%= render "admin/hotels/images/image", image: image, hotel: @hotel %>
-    <% end %> 
+<div class="content-wrapper">  
+  <div class="container">
+    <h3 style="margin-bottom: 15px"><%= @hotel.name %></h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="hotel-info" style="text-align: justify;">
+          <h5 style="margin-bottom: 10px">Tổng quan</h5>
+          <span><%= @hotel.overview %></span>
+        </div><br>
+        <div>Vị trí: <%= @hotel.location %></div><br>
+        <div>Link tới trang chủ khách sạn: <%= link_to @hotel.link, "#{@hotel.link}", target: "_blank" %></div> 
+      </div>
+      <div class="col-md-6">
+        <h5 style="margin-bottom: 10px">Ảnh</h5>
+        <div class="row">
+          <% @images.each do |image| %>
+            <%= render "admin/hotels/images/image", image: image, hotel: @hotel %>
+          <% end %> 
+        </div>
+      </div>
+    </div>
   </div>
 </div>

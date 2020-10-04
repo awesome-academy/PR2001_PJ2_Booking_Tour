@@ -1,9 +1,3 @@
-<% if image == tour.images.first %>
-  <div class="carousel-item active">
-    <%= image_tag(image&.link_url.to_s, height: "450px", width: "825px") %>
-  </div>
-<% else %>
-  <div class="carousel-item">
-    <%= image_tag(image.link_url.to_s, height: "450px", width: "825px") %>
-  </div>
-<% end %>
+<div class="carousel-item <%= image == category.images.first ? 'active' : '' %>">
+  <%= image_tag(image.link_url.to_s, height: "450px", width: "825px") %>
+</div>

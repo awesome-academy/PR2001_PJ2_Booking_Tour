@@ -1,4 +1,5 @@
 class Admin::HotelsController < Admin::BaseController
+  layout "admin"
   before_action :set_hotel, except: [:new, :index, :create]
 
   def index

@@ -1,96 +1,100 @@
-<div class="show_tour_admin">
-  <div class="container">
-    <h3><%= @tour.name %></h3>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" id="btn_read_info"><i class='far fa-file-alt'></i> Description of tour
-    </button>
-      <!-- The Modal -->
-      <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+<div class="content-wrapper">
+  <div class="show_tour_admin">
+    <div class="container">
+      <h4><%= @tour.name %></h4>
+      <div class="body">
+        <div class="btn-group">
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#overview"><i class='far fa-file-alt'></i> Giới thiệu chung
+          </button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#sightseeings"><i class='fas fa-map-marked-alt'></i> Lịch trình
+          </button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#hotels"><i class='fas fa-hotel'></i> Thông tin khách sạn
+          </button>
+        </div>
+          <!-- The Modal 1-->
+          <div class="modal fade" id="overview">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Giới thiệu chung</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>            
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <%= @tour.category.overview %>
+                </div>            
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>            
+              </div>
+            </div>
+          </div>
+          <!-- The Modal 2-->
+          <div class="modal fade" id="sightseeings">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Lịch trình</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>            
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <%= @tour.itinerary %>
+                </div>            
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>            
+              </div>
+            </div>
+          </div>
+          <!-- The Modal 3-->
+          <div class="modal fade" id="hotels">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Thông tin khách sạn</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>            
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <%= @tour.category.overview %>
+                </div>            
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>            
+              </div>
+            </div>
+          </div>
           
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Description of tour</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            
-            <!-- Modal body -->
-            <div class="modal-body">
-              <%= sanitize @tour.description %>
-            </div>
-            
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-
-    <div class="row">
-      <div class="col">
-        <h3 id="time_title"><i class='far fa-calendar-alt'></i> About Time</h3>
-        <table class="table table-hover" id="tour_details">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Departure Time</th>
-              <th>Return Time</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= render @tour_details, tour: @tour %>
-          </tbody>
-        </table>
-        <%= render "admin/tour_details/tour_detail_form", tour: @tour, tour_detail: @tour_detail %>
-      </div>
-      <div class="col">
-        <h3 id="images_title"><i class='far fa-images'></i> Images</h3>
         <div class="row">
-          <% @images.each do |image| %>
-            <%= render "admin/tours/images/image", image: image, tour: @tour %>
-          <% end %>    
-        </div>
-        <button type="button" class="btn btn-secondary" id="add_image"><i class='fas fa-plus-circle'></i> Add Images</button>
-        <%= form_for [:admin, @tour, @image] do |f| %>
-          <%= render 'shared/error_messages', object: f.object %>
-          <div class="field_form">
-            <div>
-              <%= f.file_field :link, class: "count_link", id: "images_0_link" , name: "images[link][]" %><i class='fas fa-minus-circle' id="minus_0_circle"></i>
-            </div>
+          <div class="col">
+            <h5 id="form-time">Tạo và chỉnh sửa thời gian</h5>
+            <%= render "admin/tour_details/tour_detail_form", tour: @tour, tour_detail: @tour_detail %>  
           </div>
-          <%= f.submit "Upload", class: "btn btn-warning" %>
-        <% end %>
+          <div class="col">
+            <h5 id="time_title"><i class='far fa-calendar-alt'></i> Bảng thời gian đi và về</h5>
+            <table class="table table-hover" id="tour_details">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Departure Time</th>
+                  <th>Return Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render @tour_details, tour: @tour %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  $("#add_image").click(function(){
-    addImagefield();
-  })
-  function addImagefield(){
-    var div = document.createElement("div")
-    var input = document.createElement("input");
-    var i_tag = document.createElement("i")
-    var i = $(".count_link").length;
-    input.type = "file";
-    input.id = "images_[" + i + "]_link" ;
-    input.name = "images[link][]";
-    input.className = "count_link";
-    div.append(input);
-    $(".field_form").append(div);
-    i_tag.className = "fas fa-minus-circle";
-    i_tag.id = "minus_" + i + "_circle"
-    div.append(i_tag);
-    $("input~i").click(function(){
-      $(this).parent().remove();
-    })
-  }
-  $("input~i").click(function(){
-    $(this).parent().remove();
-  })
-</script>
