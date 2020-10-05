@@ -7,24 +7,24 @@
               <div class="single-about-us">
                 <div class="about-us-txt">
                   <h4 id="title-home">
-                    BẠN ĐANG MUỐN ĐI ĐÂU? 
+                    <%= t('.background_title') %> 
                   </h4>
                   <div class="form-search">
                     <%= search_form_for @q, url: "/search/tours", class: "form-inline" do |f| %>
                       <div class="form-group">
-                        <%= f.text_field :name_cont, class: "form-control", id: "inputSearch", placeholder: "Nhập tên điểm đến hoặc thành phố bạn muốn tới" %>
+                        <%= f.text_field :name_cont, class: "form-control", id: "inputSearch", placeholder: t('.enter_search_home') %>
                       </div> <!-- Tìm kiếm theo name có chứa ... -->
                       <div class="form-group">
-                        <%= f.label :price_in, "Price: " %>
-                          <%= f.select :price_gteq, options_for_select([["$0", 0], ["$300", 300], ["$500", 500]]), {prompt: "From"}, {class: "custom-select"} %>
-                          <%= f.select :price_lteq, options_for_select([["$0", 0], ["$300", 300], ["$500", 500]]), {prompt: "To"}, {class: "custom-select"} %>
+                        <%= f.label :price_in, "#{t('.price')}:" %>
+                          <%= f.select :price_gteq, options_for_select([["$0", 0], ["$300", 300], ["$500", 500]]), {prompt: t('.from')}, {class: "custom-select"} %>
+                          <%= f.select :price_lteq, options_for_select([["$0", 0], ["$300", 300], ["$500", 500]]), {prompt: t('.to')}, {class: "custom-select"} %>
                       </div> <!-- Tìm kiếm theo age lớn hơn bằng ...  -->
                       <div class="form-group">
-                          <%= f.label :tour_details_gteq, 'From or After: ' %>
+                          <%= f.label :tour_details_gteq, t('.from_or_after') %>
                           <%= f.date_field :tour_details_gteq, class: "form-control", id: "date" %>
                       </div>
                       <%= button_tag(type: "submit", class: "btn btn-light", id: "search") do %>
-                        <i class="fa fa-search"> Search </i>
+                        <i class="fa fa-search"> <%= t('.search') %> </i>
                       <% end %>
                     <% end %>
                   </div>
@@ -43,7 +43,7 @@
     </section><!--/.about-us-->
     <!--about-us end -->
 
-    <section class="ftco-section services-section " style="height: 350px; margin-top: -50px; background-color: #f1f1f1">
+    <section class="ftco-section services-section " style="height: 450px; margin-top: -50px; background-color: #f1f1f1">
       <div class="container">
         <div class="row d-flex">
           <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
@@ -54,8 +54,8 @@
                 </div>
               </div>
               <div class="media-body p-2 mt-2">
-                <h3 class="heading mb-3">Best Price Guarantee</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <h3 class="heading mb-3"><%= t('.guarantee') %></h3>
+                <p><%= t('.guarantee_content') %></p>
               </div>
             </div>
           </div>
@@ -67,8 +67,8 @@
                 </div>
               </div>
               <div class="media-body p-2 mt-2">
-                <h3 class="heading mb-3">Travellers Love Us</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <h3 class="heading mb-3"><%= t('.love') %></h3>
+                <p><%= t('.love_content') %></p>
               </div>
             </div>
           </div>
@@ -80,8 +80,8 @@
                 </div>
               </div>
               <div class="media-body p-2 mt-2">
-                <h3 class="heading mb-3">Best Travel Agent</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <h3 class="heading mb-3"><%= t('.agent') %></h3>
+                <p><%= t('.agent_content') %></p>
               </div>
             </div>
           </div>
@@ -93,8 +93,8 @@
                 </div>
               </div>
               <div class="media-body p-2 mt-2">
-                <h3 class="heading mb-3">Our Dedicated Support</h3>
-                <p>A small river named Duden flows by their place and supplies.</p>
+                <h3 class="heading mb-3"><%= t('.support') %></h3>
+                <p><%= t('.support_content') %></p>
               </div>
             </div>
           </div>
@@ -172,10 +172,10 @@
         <div class="gallery-details">
           <div class="gallary-header text-center">
             <h2>
-              top destination
+              <%= t('.top_destination') %>
             </h2>
             <p>
-              Instantly discover tours, activities and attractions for your travel itinerary  
+              <%= t('.top_destination_info') %>
             </p>
           </div><!--/.gallery-header-->
           <div class="gallery-box">
@@ -184,27 +184,21 @@
 
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="filtr-item" style="height: 300px;">
-                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
-"https://rubyonrails.org/" %>
+                      <div class="filtr-item">
+                        <%= link_to image_tag(Category.first.images.sample.link_url.to_s, alt: 'f-ca', height: '300px', width: '540px'), category_tours_path(Category.first) %>
                         <div class="item-title">
-                          <a href="#">
-                            china
-                          </a>
-                          <p><span>20 tours</span></p>
+                          <p class="name-category"><%= Category.first.name %></p>
+                          <p><span><%= pluralize(Category.first.tours.count, "tour") %></span></p>
                         </div><!-- /.item-title -->
                       </div><!-- /.filtr-item -->
                     </div><!-- /.col -->
 
                     <div class="col-md-6">
-                      <div class="filtr-item" style="height: 300px">
-                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
-"https://rubyonrails.org/" %>
+                      <div class="filtr-item">
+                        <%= link_to image_tag(Category.second.images.sample.link_url.to_s, alt: 'f-ca', height: '300px', width:'540px'), category_tours_path(Category.second) %>
                         <div class="item-title">
-                          <a href="#">
-                            venuzuala
-                          </a>
-                          <p><span>12 tours</span></p>
+                          <p class="name-category"><%= Category.second.name %></p>
+                          <p><span><%= pluralize(Category.second.tours.count, "tour") %></span></p>
                         </div> <!-- /.item-title-->
                       </div><!-- /.filtr-item -->
                     </div>
@@ -213,13 +207,10 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="filtr-item" style="height: 630px">
-                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
-"https://rubyonrails.org/", id: "size630" %>
+                        <%= link_to image_tag(Category.third.images.sample&.link_url.to_s, alt: 'f-ca', id: 'size630'), category_tours_path(Category.third) %>
                         <div class="item-title">
-                          <a href="#">
-                            venuzuala
-                          </a>
-                          <p><span>12 tours</span></p>
+                          <p class="name-category"><%= Category.third.name %></p>
+                          <p><span><%= pluralize(Category.third.tours.count, "tour") %></span></p>
                         </div> <!-- /.item-title-->
                       </div>
                     </div><!-- /.col -->
@@ -228,38 +219,29 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="filtr-item" style="height: 300px;">
-                            <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
-    "https://rubyonrails.org/", class: "size300" %>
-                            <div class="item-title">
-                              <a href="#">
-                                venuzuala
-                              </a>
-                              <p><span>12 tours</span></p>
+                            <%= link_to image_tag(Category.find(4).images.sample&.link_url.to_s, alt: 'f-ca', height: '300px'), category_path(Category.find(4)) %>
+                        <div class="item-title">
+                          <p class="name-category"><%= Category.find(4).name %></p>
+                          <p><span><%= pluralize(Category.find(4).tours.count, "tour") %></span></p>
                             </div> <!-- /.item-title-->
                           </div>
                         </div><!-- /.col -->
 
                         <div class="col-md-6">
                           <div class="filtr-item" style="height: 300px">
-                            <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
-    "https://rubyonrails.org/", class: "size300" %>
-                            <div class="item-title">
-                              <a href="#">
-                                venuzuala
-                              </a>
-                              <p><span>12 tours</span></p>
+                            <%= link_to image_tag(Category.find(5).images.sample&.link_url.to_s, alt: 'f-ca', height: '300px'),  category_path(Category.find(5)) %>
+                        <div class="item-title">
+                          <p class="name-category"><%= Category.find(5).name %></p>
+                          <p><span><%= pluralize(Category.find(5).tours.count, "tour") %></span></p>
                             </div> <!-- /.item-title-->
                           </div>
                         </div><!-- /.col -->
                       </div>
                       <div class="filtr-item" style="height: 300px">
-                        <%= link_to image_tag("bg_1.png", alt: "Rails logo"),
-"https://rubyonrails.org/" %>
+                        <%= link_to image_tag(Category.find(6).images.sample&.link_url.to_s, alt: 'f-ca', height: '300px', width: '730px'), category_path(Category.find(6)) %>
                         <div class="item-title">
-                          <a href="#">
-                            venuzuala
-                          </a>
-                          <p><span>12 tours</span></p>
+                          <p class="name-category"><%= Category.find(6).name %></p>
+                          <p><span><%= pluralize(Category.find(6).tours.count, "tour") %></span></p>
                         </div> <!-- /.item-title-->
                       </div>
                     </div>
@@ -274,7 +256,7 @@
           </div><!--/.galley-box-->
           <div>
             <%= link_to categories_path, class: "btn btn-outline-primary", id: "all-categories" do %>
-              <i class='fas fa-map-marker-alt'> See all Places</i>
+              <i class='fas fa-map-marker-alt'> <%= t('.see_all_places') %></i>
             <% end %>
           </div>
         </div><!--/.gallery-details-->
@@ -291,10 +273,10 @@
       <div class="container">
         <div class="gallary-header text-center">
           <h2>
-            all packages
+            <%= t('.all_packages') %>
           </h2>
           <p>
-            Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.  
+            <%= t('.all_packages_info') %>
           </p>
         </div><!--/.gallery-header-->
         <div class="packages-content">
@@ -312,10 +294,10 @@
         <div class="blog-details">
             <div class="gallary-header text-center">
               <h2>
-                travel inspiration
+                <%= t('.travel_inspiration') %>
               </h2>
               <p>
-                Interesting travel experiences are shared here   
+                <%= t('.travel_inspiration_info') %>
               </p>
             </div><!--/.gallery-header-->
             <div class="blog-content">
@@ -400,36 +382,6 @@
 
     </section><!--/.blog-->
     <!--blog end-->
-
-    
-    <!--subscribe start-->
-    <section id="subs" class="subscribe">
-      <div class="container">
-        <div class="subscribe-title text-center">
-          <h2>
-            Join our Subscribers List to Get Regular Update
-          </h2>
-          <p>
-            Subscribe Now. We will send you Best offer for your Trip 
-          </p>
-        </div>
-        <form>
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-              <div class="custom-input-group">
-                <input type="email" class="form-control" placeholder="Enter your Email Here">
-                <button class="appsLand-btn subscribe-btn">Subscribe</button>
-                <div class="clearfix"></div>
-                <i class="fa fa-envelope"></i>
-              </div>
-
-            </div>
-          </div>
-        </form>
-      </div>
-
-    </section>
-    <!--subscribe end-->
     
 <script type="text/javascript">
   $("#bl1").mouseenter(function(){

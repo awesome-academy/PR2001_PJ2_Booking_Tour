@@ -8,7 +8,7 @@
       <!-- SEARCH FORM -->
       <%= search_form_for Tour.ransack(params[:q]), url: "/search/tours", class: "form-inline ml-3" do |f| %>
         <div class="input-group input-group-md" style="width: 250px">
-          <%= f.text_field :name_cont, class: "form-control form-control-navbar", placeholder: "Nhập địa điểm bạn muốn đến" %>
+          <%= f.text_field :name_cont, class: "form-control form-control-navbar", placeholder: t('.enter_search') %>
         </div> <!-- Tìm kiếm theo name có chứa ... -->
         <div class="input-group-append">
           <%= button_tag(type: "submit", class: "btn btn-navbar") do %>
@@ -19,52 +19,68 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <%= link_to "Trang chủ", root_path, class: "nav-link" %>
+          <%= link_to t('.home'), root_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Tour du lịch
+            <%= t '.tours_by_area' %>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <%= link_to "Miền Bắc", area_categories_path(area: "N"), class: "dropdown-item" %>
-            <%= link_to "Miền Trung", area_categories_path(area: "C"), class: "dropdown-item" %>
-            <%= link_to "Miền Nam", area_categories_path(area: "S"), class: "dropdown-item" %>
+            <%= link_to t('.north'), area_categories_path(area: "N"), class: "dropdown-item" %>
+            <%= link_to t('.central'), area_categories_path(area: "C"), class: "dropdown-item" %>
+            <%= link_to t('.south'), area_categories_path(area: "S"), class: "dropdown-item" %>
           </div>
         </li>
 
         <% if current_user %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Tài khoản
+              <%= t '.acount' %>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <%= link_to "Trang cá nhân", current_user, class: "dropdown-item" %>
-              <%= link_to "Chỉnh sửa", edit_user_registration_path(current_user), class: "dropdown-item" %>
+              <%= link_to t('.profile'), current_user, class: "dropdown-item" %>
+              <%= link_to t('.setting'), edit_user_registration_path(current_user), class: "dropdown-item" %>
               <div class="dropdown-divider"></div>
               <% if current_user.admin %>
-                <%= link_to "Đi đến trang quản trị", admin_path, class: "dropdown-item" %>
+                <%= link_to t('.admin_pages'), admin_path, class: "dropdown-item" %>
               <% end %>
-              <%= link_to "Đăng xuất", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+              <%= link_to t('.log_out'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
         <li class="nav-item">
-          <%= link_to "Đăng ký", new_user_registration_path, class: "nav-link" %>
+          <%= link_to t('.sign_up'), new_user_registration_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Đăng nhập", new_user_session_path, class: "nav-link" %>
+          <%= link_to t('.log_in'), new_user_session_path, class: "nav-link" %>
         </li>
         <% end %>
         <li class="nav-item">
           <div class="nav-link">
-            <i class="fa fa-phone"></i>
-            19001009
-          </div>
-        </li>
-        <li class="nav-item">
-          <div class="nav-link">
             <i class="fa fa-envelope"></i>
             pikachu@pr2001.com
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <% if params[:locale] == 'en' %>
+              <%= image_tag('en.png', alt: 'flag') %> <%= t('.english') %>
+            <% else %>
+              <%= image_tag('vi.png', alt: 'flag') %> <%= t('.vietnamese') %>
+            <% end %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <% if params[:locale] %>
+              <% ['vi', 'en'].reject{|language| language == params[:locale]}.each do |language| %>
+                <%= link_to language, class: "dropdown-item" do %>
+                  <%= image_tag("#{language}.png", alt: 'flag') %> <%= t(".#{language}") %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= link_to 'en', class: "dropdown-item" do %>
+                  <%= image_tag("en.png", alt: 'flag') %> <%= t('.english') %>
+                <% end %>
+            <% end %>
           </div>
         </li>
       </ul>

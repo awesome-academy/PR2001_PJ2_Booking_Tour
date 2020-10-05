@@ -1,32 +1,24 @@
 <!-- footer-copyright start -->
 <footer  class="footer-copyright">
   <div class="container">
-    <div class="footer-content">
+    <div class="footer-content" style="padding-bottom: 0">
       <div class="row">
 
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="margin: auto;">
           <div class="single-footer-item">
             <div class="footer-logo">
-              <a href="index.html">
-                tour<span>Nest</span>
-              </a>
-              <p>
-                best travel agency
-              </p>
+              <%= link_to image_tag("logo.png", alt: "Rails logo", class: "navbar-brand"), root_path %>
             </div>
           </div><!--/.single-footer-item-->
         </div><!--/.col-->
 
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="padding-left: 80px">
           <div class="single-footer-item">
-            <h2>link</h2>
+            <p class="title-footer">link</p>
             <div class="single-footer-txt">
-              <p><a href="#">home</a></p>
-              <p><a href="#">destination</a></p>
-              <p><a href="#">spacial packages</a></p>
-              <p><a href="#">special offers</a></p>
-              <p><a href="#">blog</a></p>
-              <p><a href="#">contacts</a></p>
+              <p><a href="#"><%= t('.home') %></a></p>
+              <p><a href="#"><%= t('.destination') %></a></p>
+              <p><a href="#"><%= t('.about_us') %></a></p>
             </div><!--/.single-footer-txt-->
           </div><!--/.single-footer-item-->
 
@@ -34,7 +26,7 @@
 
         <div class="col-sm-3">
           <div class="single-footer-item">
-            <h2>popular destination</h2>
+            <p class="title-footer"><%= t('.popular_destination') %></p>
             <div class="single-footer-txt">
               <p><a href="#">china</a></p>
               <p><a href="#">venezuela</a></p>
@@ -47,12 +39,11 @@
 
         <div class="col-sm-3">
           <div class="single-footer-item text-center">
-            <h2 class="text-left">contacts</h2>
+            <p class="title-footer"><%= t('.contacts') %></p>
             <div class="single-footer-txt text-left">
-              <p>+1 (300) 1234 6543</p>
-              <p class="foot-email"><a href="#">info@tnest.com</a></p>
-              <p>North Warnner Park 336/A</p>
-              <p>Newyork, USA</p>
+              <p>19001009</p>
+              <p class="foot-email">pikachu@pr2001.com</p>
+              <p><%= t('.address') %></p>
             </div><!--/.single-footer-txt-->
           </div><!--/.single-footer-item-->
         </div><!--/.col-->

@@ -1,6 +1,6 @@
 <div class="col-md-3">
   <div class="single-package-item">
-    <%= image_tag("bg_1.png", alt: "Rails logo") %>
+    <%= link_to image_tag(tour.category.images.sample&.link_url.to_s, alt: 'image-tour') %>
     <div class="single-package-item-txt">
       <%= link_to tour.name, category_tour_path(tour.category, tour), class: "tour-name" %>
       <div class="packages-review">
@@ -15,7 +15,7 @@
             </p>
           </div>
           <div class="col" style="height: 26px">
-            <p><% if tour.coupon > 0 %>
+            <p class="old-price"><% if tour.coupon > 0 %>
               <strike><%= number_to_currency(tour.price, unit: "vnđ", precision: 0, format: "%n %u") %></strike>
             <% end %></p>
           </div>

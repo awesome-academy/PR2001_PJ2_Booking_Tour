@@ -111,6 +111,15 @@ a:hover {text-decoration: none;}
   position: relative;
 }
 
+/*footer*/
+.title-footer {
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+  color: #565a5c;
+}
+ footer {margin-top: 50px}
+
 /////*home*/////
 #bl1, #bl2, #bl3, #bl4 {
     background-color: white;
@@ -121,6 +130,12 @@ a:hover {text-decoration: none;}
     h3, p {color: white}
   }
 }
+
+.name-category {font-size: x-large; margin-bottom: 0}
+
+.ftco-section p {color: gray; margin-bottom: 0;}
+
+.old-price {color: gray; font-size: 14px;}
 
 .icon {
   margin-top: 25px;
@@ -159,7 +174,6 @@ a:hover {text-decoration: none;}
     font-size: 20px;
   }
 }
-.size300 {height: 300px}
 #size630 {height: 630px}
 
 #login-deals {
