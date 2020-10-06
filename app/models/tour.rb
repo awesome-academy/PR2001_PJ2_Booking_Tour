@@ -2,8 +2,9 @@ class Tour < ApplicationRecord
   belongs_to :category
 
   has_many :tour_details, dependent: :destroy
-  has_many :hotel_tours
+  has_many :hotel_tours, dependent: :destroy
   has_many :hotels, through: :hotel_tours
+  has_many :ratings, dependent: :destroy
   has_rich_text :itinerary
   has_rich_text :price_info
 

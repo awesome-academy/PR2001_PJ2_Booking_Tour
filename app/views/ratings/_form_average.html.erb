@@ -1,0 +1,23 @@
+<div class="form-inline" style="margin-bottom: 5px">
+  <% 5.times do |n| %>
+    <i class="fa fa-star" id="average-<%= n + 1 %>"></i>
+  <% end %>
+  <div>(<%= pluralize(tour.ratings.count, "voter") %>)</div>
+</div>
+<script type="text/javascript">
+  <% ratings = tour.ratings.pluck(:rate) %>
+  <% if ratings.present? %>
+    <% average = ratings.sum.fdiv(ratings.size).round %>
+    <% if average == 5 %>
+      $("#average-1, #average-2, #average-3, #average-4, #average-5").css({'color': '#ffdf00'})
+    <% elsif average == 4 %>
+      $("#average-1, #average-2, #average-3, #average-4").css({'color': '#ffdf00'})
+    <% elsif average == 3 %>
+      $("#average-1, #average-2, #average-3").css({'color': '#ffdf00'})
+    <% elsif average == 2 %>
+      $("#average-1, #average-2").css({'color': '#ffdf00'})
+    <% else %>
+      $("#average-1").css({"color": "#ffdf00"})
+    <% end %>
+  <% end %>    
+</script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_04_113053) do
+ActiveRecord::Schema.define(version: 2020_10_05_174740) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -128,6 +128,24 @@ ActiveRecord::Schema.define(version: 2020_10_04_113053) do
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "sender_id"
+    t.string "content"
+    t.integer "receiver_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer "rate"
+    t.integer "user_id", null: false
+    t.integer "tour_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tour_id"], name: "index_ratings_on_tour_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer "tour_id", null: false
     t.integer "user_id", null: false
@@ -189,6 +207,8 @@ ActiveRecord::Schema.define(version: 2020_10_04_113053) do
   add_foreign_key "booking_tours", "users"
   add_foreign_key "hotel_tours", "hotels"
   add_foreign_key "hotel_tours", "tours"
+  add_foreign_key "ratings", "tours"
+  add_foreign_key "ratings", "users"
   add_foreign_key "reviews", "tours"
   add_foreign_key "reviews", "users"
   add_foreign_key "tour_details", "tours"

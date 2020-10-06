@@ -1,0 +1,21 @@
+<div class="form-inline" style="margin-left: 10px; margin-bottom: 5px">
+  <% 5.times do |n| %>
+    <i class="fa fa-star" id="<%= n + 1 %>-point"></i>
+  <% end %>
+</div>
+<script type="text/javascript">
+  <% if current_user && current_user.ratings.pluck(:tour_id).include?(tour.id) %>
+    <% rate = Rating.where(tour_id: tour.id).where(user_id: current_user.id)[0].rate %>
+    <% if rate == 5 %>
+      $("#1-point, #2-point, #3-point, #4-point, #5-point").css({'color': '#ffdf00'})
+    <% elsif rate == 4 %>
+      $("#1-point, #2-point, #3-point, #4-point").css({'color': '#ffdf00'})
+    <% elsif rate == 3 %>
+      $("#1-point, #2-point, #3-point").css({'color': '#ffdf00'})
+    <% elsif rate == 2 %>
+      $("#1-point, #2-point").css({'color': '#ffdf00'})
+    <% else %>
+      $("#1-point").css({"color": "#ffdf00"})
+    <% end %>
+  <% end %>
+</script>

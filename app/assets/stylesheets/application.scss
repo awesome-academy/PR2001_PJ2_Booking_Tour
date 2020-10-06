@@ -245,6 +245,9 @@ footer {
     border-bottom-width: 1px;
     border-bottom-color: #e9ecef;
   }
+  .form-inline {
+    margin-bottom: 20px;
+  }
 }
 #book-now { background-color: orange }
 .table-coupons {
@@ -280,6 +283,13 @@ ul.breadcrumb li a:hover {
   color: #e0a800;
   text-decoration: none;
 }
+
+.five-star {
+  padding: 0;
+  border: none;
+  background-color: white
+}
+
 
 //* admin *//
 
