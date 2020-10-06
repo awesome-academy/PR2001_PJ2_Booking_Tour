@@ -72,12 +72,12 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <% if params[:locale] %>
               <% ['vi', 'en'].reject{|language| language == params[:locale]}.each do |language| %>
-                <%= link_to language, class: "dropdown-item" do %>
+                <%= link_to request.params.merge(locale: language), class: "dropdown-item" do %>
                   <%= image_tag("#{language}.png", alt: 'flag') %> <%= t(".#{language}") %>
                 <% end %>
               <% end %>
             <% else %>
-              <%= link_to 'en', class: "dropdown-item" do %>
+              <%= link_to request.params.merge(locale: 'en'), class: "dropdown-item" do %>
                   <%= image_tag("en.png", alt: 'flag') %> <%= t('.english') %>
                 <% end %>
             <% end %>

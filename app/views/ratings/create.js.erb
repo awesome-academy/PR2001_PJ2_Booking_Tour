@@ -1,0 +1,6 @@
+<% if @rating.errors.blank? %>
+  $("#average-tour-<%= @tour.id %>").html("<%= j(render("ratings/form_average", tour: @tour))%>");
+  $(".user-rating").html("<%= j(render("ratings/user_rating", tour: @tour))%>");
+<% else %>
+  $(".table-inform-tour").append('<%= j(render('shared/error_messages', object: @rating)) %>');
+<% end %>

@@ -1,0 +1,43 @@
+<div class="form-inline" style="margin-left: 10px; margin-bottom: 5px">
+  <% 5.times do |n| %>
+    <% if current_user && current_user.ratings.pluck(:tour_id).include?(tour.id) %>
+      <i class="fa fa-star" id="<%= n + 1 %>-point"></i>
+    <% else %>
+      <%= button_to tour_ratings_path(tour), class: "five-star", params: {'rate'=> n + 1}, remote: true do %>
+        <i class="fa fa-star" id="star-<%= n + 1 %>"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+
+<style type="text/css">
+  .sunny {color: #ffdf00}
+</style>
+
+<script type="text/javascript">
+  <% 5.times do |n| %>
+    $("#star-<%= n + 1 %>").hover(function(){
+      <% (n+1).times do |i| %>
+        $('#star-<%= i + 1 %>').toggleClass('sunny')
+      <% end %>
+    })
+  <% end %>
+</script>
+
+<script type="text/javascript">
+  <% if current_user && current_user.ratings.pluck(:tour_id).include?(tour.id) %>
+    <% rate = current_user.ratings.where(tour_id: tour.id)[0].rate %>
+    <% if rate == 5 %>
+      $("#1-point, #2-point, #3-point, #4-point, #5-point").css({'color': '#ffdf00'})
+    <% elsif rate == 4 %>
+      $("#1-point, #2-point, #3-point, #4-point").css({'color': '#ffdf00'})
+    <% elsif rate == 3 %>
+      $("#1-point, #2-point, #3-point").css({'color': '#ffdf00'})
+    <% elsif rate == 2 %>
+      $("#1-point, #2-point").css({'color': '#ffdf00'})
+    <% else %>
+      $("#1-point").css({"color": "#ffdf00"})
+    <% end %>
+  <% end %>
+</script>

@@ -28,8 +28,14 @@
           <% if @tour.coupon > 0 %>
             <p><strong>Giá cũ: <strike><%= number_to_currency(@tour.price, unit: "vnđ", precision: 0, format: "%n %u") %></strike></strong></p>
           <% end %>
-          <p><strong>Đánh giá trung bình</strong></p>
-          <p><strong>Đánh giá của bạn</strong></p>
+          <div class="form-inline">
+            <p style="margin-bottom: 0; margin-right: 10px"><strong>Điểm TB:</strong></p>
+            <div id="average-tour-<%= @tour.id %>"><%= render "ratings/form_average", tour: @tour %></div>
+          </div>
+          <div class="form-inline">
+            <p style="margin-bottom: 0;"><strong>Đánh giá của bạn:</strong></p>
+            <div class="user-rating"><%= render 'ratings/form_rating', tour: @tour %></div>
+          </div>
           <%= link_to "Book Now", "#book-tour", class: "btn btn-warning"%>
         </div>
         <div class="table-coupons">
